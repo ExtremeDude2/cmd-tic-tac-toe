@@ -89,6 +89,185 @@ unsigned short check_status()
 	return 0;
 }
 
+void CPU2()
+{
+	if (player_turn() == 1)
+	{
+try_CPU2:
+		cout << "X(CPU)'s turn" << endl;
+		if (place == 1)
+		{
+			if (!NW)
+				NW = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		}
+		else if (place == 2)
+		{
+			if (!N)
+				N = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		}
+		else if (place == 3)
+			if (!NE)
+				NE = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 4)
+			if (!W)
+				W = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 5)
+			if (!CEN)
+				CEN = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 6)
+			if (!E)
+				E = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 7)
+			if (!SW)
+				SW = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 8)
+			if (!S)
+				S = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 9)
+			if (!SE)
+				SE = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else
+		{
+			cout << "Error incorect place, try again" << endl << endl;
+			goto try_CPU2;
+		}
+	}
+	else if (player_turn() == 2)
+	{
+		cout << "O(CPU)'s turn" << endl;
+		if (place == 1)
+		{
+			if (!NW)
+				NW = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		}
+		else if (place == 2)
+		{
+			if (!N)
+				N = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		}
+		else if (place == 3)
+			if (!NE)
+				NE = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 4)
+			if (!W)
+				W = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 5)
+			if (!CEN)
+				CEN = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 6)
+			if (!E)
+				E = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 7)
+			if (!SW)
+				SW = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 8)
+			if (!S)
+				S = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else if (place == 9)
+			if (!SE)
+				SE = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU2;
+			}
+		else
+		{
+			cout << "Error incorect place, try again" << endl << endl;
+			goto try_CPU2;
+		}
+	}
+	else
+		cout << "Unknown turn" << endl;
+	draw_board();
+	turn++;
+}
+
 void CPU()
 {
 	if (player_turn() == 1)
@@ -299,7 +478,9 @@ int main()
 	system("cls");
 	while (game_playing(playing))
 	{
-		if (players == 1)
+		if (players == 0)
+			CPU2();
+		else if (players == 1)
 			CPU();
 		else if (players == 2)
 			person();
@@ -309,24 +490,25 @@ int main()
 			cout << "SCOREBOARD:" << endl;
 			if (check_status() == 1)
 			{
-				cout << endl << "X wins!" << endl;
+				cout << endl << "X wins!" << endl << endl;
 				x_win++;
 			}
 			else if (check_status() == 2)
 			{
-				cout << endl << "O wins!" << endl;
+				cout << endl << "O wins!" << endl << endl;
 				o_win++;
 			}
 			else if (check_status() == 3)
 			{
-				cout << endl << "Draw, no one wins" << endl;
+				cout << endl << "Draw, no one wins" << endl << endl;
 				draw++;
 			}
 			else
-				cout << "Error unknown winner" << endl;
+				cout << "Error unknown winner" << endl << endl;
 			game++;
-			cout << endl << "X has " << x_win << " win(s), O has " << o_win << " win(s) and there have been " << draw << " draw(s)" << endl;
-			cout << endl << "Games played " << game << endl;
+			draw_board();
+			cout << endl << "Out of " << game << " game(s) played " << "X has " << x_win << " win(s), O has "
+				<< o_win << " win(s) and there have been " << draw << " draw(s)." << endl;
 			cout << endl << "Would you like to play again? (1 = yes, 0 = no): ";
 			cin >> playing;
 			reset();
