@@ -20,23 +20,23 @@ unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE =
 
 void draw_board()
 {
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "----------+----------+----------" << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "----------+----------+----------" << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
-	cout << "          |          |          " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "---------+---------+---------" << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "---------+---------+---------" << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
+	cout << "         |         |         " << endl;
 	cout << endl;
 }
 
@@ -91,9 +91,9 @@ unsigned short check_status()
 
 void CPU2()
 {
+try_CPU2:
 	if (player_turn() == 1)
 	{
-try_CPU2:
 		cout << "X(CPU)'s turn" << endl;
 		if (place == 1)
 		{
@@ -270,9 +270,9 @@ try_CPU2:
 
 void CPU()
 {
+try_CPU:
 	if (player_turn() == 1)
 	{
-try_CPU:
 		cout << "X's turn" << endl;
 		cout << endl << "Please select where you would like to go, options include:" << endl;
 		cout << "Nort West (1), North (2), North East (3), West (4), Center (5)," << endl;
@@ -362,7 +362,90 @@ try_CPU:
 		}
 	}
 	else if (player_turn() == 2)
+	{
 		cout << "O(CPU)'s turn" << endl;
+		if (place == 1)
+		{
+			if (!NW)
+				NW = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		}
+		else if (place == 2)
+		{
+			if (!N)
+				N = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		}
+		else if (place == 3)
+			if (!NE)
+				NE = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else if (place == 4)
+			if (!W)
+				W = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else if (place == 5)
+			if (!CEN)
+				CEN = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else if (place == 6)
+			if (!E)
+				E = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else if (place == 7)
+			if (!SW)
+				SW = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else if (place == 8)
+			if (!S)
+				S = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else if (place == 9)
+			if (!SE)
+				SE = player_turn();
+			else
+			{
+				cout << "Error cannot move there, try again" << endl << endl;
+				goto try_CPU;
+			}
+		else
+		{
+			cout << "Error incorect place, try again" << endl << endl;
+			goto try_CPU;
+		}
+	}
 	else
 		cout << "Unknown turn" << endl;
 	draw_board();
@@ -470,11 +553,15 @@ try_person:
 
 int main()
 {
-	cout << "Would you like to play with 1 player or 2?" << endl;
-	cout << "(switching number of players requires a restart): ";
+start:
+	cout << "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? (switching number of players requires a restart)" << endl;
+	cout << "Note: All CPUs are very fast and you will likely not see them move." << endl;
 	cin >> players;
-	if (players > 2)
-		cout << "Error, invalid number of players";
+	if (players > 2 || players < 0)
+	{
+		cout << "Error, invalid number of players, try again" << endl << endl;
+		goto start;
+	}
 	system("cls");
 	while (game_playing(playing))
 	{
