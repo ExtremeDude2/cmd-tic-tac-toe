@@ -1,18 +1,15 @@
 /************************************************************/	
 /*															                            */ 
-/* Created by Ryan Collins 2012-2013, use at your own risk.  */﻿ 
+/* Created by Ryan Collins 2012-2013, use at your own risk.  */  
 /*											                               		 */ 
 /************************************************************/
 
 /*
 To do list:
 
-use system("cls");
-count wins for each player
-make CPU
+finish CPU
 be able to chose X or O when playing CPU?
-count number of games
-count number of turns
+
 */
 
 #include <iostream>
@@ -46,20 +43,15 @@ void draw_board()
 	cout << endl;
 }
 
-bool game_playing(int playing)
-{
-	if (playing)
-		return true;
-	else if (!playing)
-		return false;
-	return true;
-}
-
-void CPU_move()
+void CPU_X()
 {
 
 }
 
+void CPU_O()
+{
+
+}
 
 unsigned short player_turn()
 {
@@ -575,7 +567,7 @@ start:
 		goto start;
 	}
 	system("cls");
-	while (game_playing(playing))
+	while (playing)
 	{
 		if (players == 0)
 			CPU2();
