@@ -1,3 +1,9 @@
+/************************************************************/	
+/*															                            */ 
+/* Created by Ryan Collins 2012-2013, use at your own risk.  */﻿ 
+/*											                               		 */ 
+/************************************************************/
+
 /*
 To do list:
 
@@ -48,6 +54,12 @@ bool game_playing(int playing)
 		return false;
 	return true;
 }
+
+void CPU_move()
+{
+
+}
+
 
 unsigned short player_turn()
 {
@@ -571,23 +583,26 @@ start:
 			CPU();
 		else if (players == 2)
 			person();
+		else
+			cout << "Error, don't know who is playing. Please restart the program." << endl;
+		place = 0;
 		if (check_status())
 		{
 			system("cls");
 			cout << "SCOREBOARD:" << endl;
 			if (check_status() == 1)
 			{
-				cout << endl << "X wins!" << endl << endl;
+				cout << endl << "X wins! It was done in " << turn << " turns." << endl << endl;
 				x_win++;
 			}
 			else if (check_status() == 2)
 			{
-				cout << endl << "O wins!" << endl << endl;
+				cout << endl << "O wins! It was done in " << turn << " turns." << endl << endl;
 				o_win++;
 			}
 			else if (check_status() == 3)
 			{
-				cout << endl << "Draw, no one wins" << endl << endl;
+				cout << endl << "Draw, no one wins." << endl << endl;
 				draw++;
 			}
 			else
