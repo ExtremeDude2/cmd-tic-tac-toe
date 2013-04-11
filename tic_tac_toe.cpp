@@ -1,47 +1,16 @@
-/************************************************************/	
-/*															                            */ 
-/* Created by Ryan Collins 2012-2013, use at your own risk.  */  
-/*											                               		 */ 
-/************************************************************/
-
 /*
 To do list:
 
-finish CPU
+make CPU
 be able to chose X or O when playing CPU?
+finish drawing board
 
 */
 
 #include <iostream>
-// #include <iomanip>, may or may not need this
+#include "board.h"
 
 using namespace std;
-
-// 0 = none, 1 = X, 2 = O, 3 = draw
-unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE = 0,
-	turn = 0, game = 0, x_win = 0, o_win = 0, draw = 0, playing = 1, place = 0, players = 0;
-
-void draw_board()
-{
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "---------+---------+---------" << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "---------+---------+---------" << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << "         |         |         " << endl;
-	cout << endl;
-}
 
 void CPU_X()
 {
@@ -53,7 +22,7 @@ void CPU_O()
 
 }
 
-unsigned short player_turn()
+short player_turn()
 {
 	if (turn == 0 || turn == 2 || turn == 4 || turn == 6 || turn == 8)
 		return 1;
@@ -68,7 +37,7 @@ void reset()
 	system("cls");
 }
 
-unsigned short check_status()
+short check_status()
 {
 	if (((NW == 1) && (N == 1) && (NE == 1)) || ((W == 1 && E == 1 && CEN == 1))
 		|| ((SW == 1) && (S == 1) && (SE == 1)) || ((NW == 1) && (W == 1) && (SW == 1))
@@ -558,7 +527,7 @@ try_person:
 int main()
 {
 start:
-	cout << "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? (switching number of players requires a restart)" << endl;
+	cout << "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? (switching number of players mid-game requires a restart)" << endl;
 	cout << "Note: All CPUs are very fast and you will likely not see them move." << endl;
 	cin >> players;
 	if (players > 2 || players < 0)
@@ -576,7 +545,10 @@ start:
 		else if (players == 2)
 			person();
 		else
-			cout << "Error, don't know who is playing. Please restart the program." << endl;
+		{
+			cout << "Error, don't know who is playing. Please try again." << endl;
+			goto start;
+		}
 		place = 0;
 		if (check_status())
 		{
