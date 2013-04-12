@@ -1,10 +1,13 @@
+/************************************************************/
+/*															                            */ 
+/* Created by Ryan Collins 2012-2013, use at your own risk. */ ﻿
+/*											                               		 */  
+/************************************************************/
+
 /*
 To do list:
-
-make CPU
-be able to chose X or O when playing CPU?
-finish drawing board
-
+	make CPU
+	finish drawing board
 */
 
 #include <iostream>
@@ -12,17 +15,23 @@ finish drawing board
 
 using namespace std;
 
+unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE = 0,
+	turn = 0, game = 0, x_win = 0, o_win = 0, draw = 0, playing = 1, place = 0, players = 0;
+
+// CPU X's logic
 void CPU_X()
 {
 
 }
 
+// CPU O's logic
 void CPU_O()
 {
 
 }
 
-short player_turn()
+// This function is used to determine whos turn it is
+unsigned short player_turn()
 {
 	if (turn == 0 || turn == 2 || turn == 4 || turn == 6 || turn == 8)
 		return 1;
@@ -37,7 +46,7 @@ void reset()
 	system("cls");
 }
 
-short check_status()
+unsigned short check_status()
 {
 	if (((NW == 1) && (N == 1) && (NE == 1)) || ((W == 1 && E == 1 && CEN == 1))
 		|| ((SW == 1) && (S == 1) && (SE == 1)) || ((NW == 1) && (W == 1) && (SW == 1))
