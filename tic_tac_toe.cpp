@@ -1,6 +1,6 @@
 /************************************************************/
 /*															                            */ 
-/* Created by Ryan Collins 2012-2013, use at your own risk. */ ﻿
+/* Created by Ryan Collins 2012-2013, use at your own risk. */  
 /*											                               		 */  
 /************************************************************/
 
@@ -15,16 +15,17 @@ To do list:
 
 using namespace std;
 
+// 0 = none, 1 = X, 2 = O, 3 = draw
 unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE = 0,
 	turn = 0, game = 0, x_win = 0, o_win = 0, draw = 0, playing = 1, place = 0, players = 0;
 
-// CPU X's logic
+// This function is CPU X's logic
 void CPU_X()
 {
 
 }
 
-// CPU O's logic
+// This function is CPU O's logic
 void CPU_O()
 {
 
@@ -40,12 +41,14 @@ unsigned short player_turn()
 	return 0;
 }
 
+// This function resets all of the places and clears the screen
 void reset()
 {
 	NW = N = NE = W = CEN = E = SW = S = SE = turn = place = 0;
 	system("cls");
 }
 
+// This function checks to see if anyone has won or if there is a tie
 unsigned short check_status()
 {
 	if (((NW == 1) && (N == 1) && (NE == 1)) || ((W == 1 && E == 1 && CEN == 1))
@@ -64,13 +67,14 @@ unsigned short check_status()
 	}
 	if (((NW == 1) || (NW == 2)) && ((N == 1) || (N == 2)) && ((NE == 1) || (NE == 2))
 		&& ((E == 1) || (E == 2)) && ((SE == 1) || (SE == 2)) && ((S == 1) || (SE == 2))
-		&& ((SW == 1) || (SW == 2)) && ((W == 1) || (W == 2)) && ((CEN == 1) || (CEN == 2)) || turn > 8)
+		&& ((SW == 1) || (SW == 2)) && ((W == 1) || (W == 2)) && ((CEN == 1) || (CEN == 2)) || turn >= 9)
 	{
 		return 3;
 	}
 	return 0;
 }
 
+// This function is used when 2 CPU's play against each other
 void CPU2()
 {
 try_CPU2:
@@ -83,7 +87,7 @@ try_CPU2:
 				NW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		}
@@ -93,7 +97,7 @@ try_CPU2:
 				N = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		}
@@ -102,7 +106,7 @@ try_CPU2:
 				NE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 4)
@@ -110,7 +114,7 @@ try_CPU2:
 				W = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 5)
@@ -118,7 +122,7 @@ try_CPU2:
 				CEN = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 6)
@@ -126,7 +130,7 @@ try_CPU2:
 				E = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 7)
@@ -134,7 +138,7 @@ try_CPU2:
 				SW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 8)
@@ -142,7 +146,7 @@ try_CPU2:
 				S = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 9)
@@ -150,12 +154,12 @@ try_CPU2:
 				SE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else
 		{
-			cout << "Error incorect place, try again" << endl << endl;
+			cout << "Error, incorect place. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
 	}
@@ -168,7 +172,7 @@ try_CPU2:
 				NW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		}
@@ -178,7 +182,7 @@ try_CPU2:
 				N = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again"" << endl << endl;
 				goto try_CPU2;
 			}
 		}
@@ -187,7 +191,7 @@ try_CPU2:
 				NE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 4)
@@ -195,7 +199,7 @@ try_CPU2:
 				W = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 5)
@@ -203,7 +207,7 @@ try_CPU2:
 				CEN = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 6)
@@ -211,7 +215,7 @@ try_CPU2:
 				E = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 7)
@@ -219,7 +223,7 @@ try_CPU2:
 				SW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 8)
@@ -227,7 +231,7 @@ try_CPU2:
 				S = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else if (place == 9)
@@ -235,21 +239,22 @@ try_CPU2:
 				SE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU2;
 			}
 		else
 		{
-			cout << "Error incorect place, try again" << endl << endl;
+			cout << "Error, incorect place. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
 	}
 	else
-		cout << "Unknown turn" << endl;
+		cout << "Error, unknown turn" << endl;
 	draw_board();
 	turn++;
 }
 
+// This function is used when 1 player is against 1 CPU
 void CPU()
 {
 try_CPU:
@@ -267,7 +272,7 @@ try_CPU:
 				NW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		}
@@ -277,7 +282,7 @@ try_CPU:
 				N = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		}
@@ -286,7 +291,7 @@ try_CPU:
 				NE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 4)
@@ -294,7 +299,7 @@ try_CPU:
 				W = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 5)
@@ -302,7 +307,7 @@ try_CPU:
 				CEN = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 6)
@@ -310,7 +315,7 @@ try_CPU:
 				E = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 7)
@@ -318,7 +323,7 @@ try_CPU:
 				SW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 8)
@@ -326,7 +331,7 @@ try_CPU:
 				S = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 9)
@@ -334,12 +339,12 @@ try_CPU:
 				SE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else
 		{
-			cout << "Error incorect place, try again" << endl << endl;
+			cout << "Error, incorect place. Please try again" << endl << endl;
 			goto try_CPU;
 		}
 	}
@@ -352,7 +357,7 @@ try_CPU:
 				NW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		}
@@ -362,7 +367,7 @@ try_CPU:
 				N = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		}
@@ -371,7 +376,7 @@ try_CPU:
 				NE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 4)
@@ -379,7 +384,7 @@ try_CPU:
 				W = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 5)
@@ -387,7 +392,7 @@ try_CPU:
 				CEN = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 6)
@@ -395,7 +400,7 @@ try_CPU:
 				E = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 7)
@@ -403,7 +408,7 @@ try_CPU:
 				SW = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 8)
@@ -411,7 +416,7 @@ try_CPU:
 				S = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else if (place == 9)
@@ -419,12 +424,12 @@ try_CPU:
 				SE = player_turn();
 			else
 			{
-				cout << "Error cannot move there, try again" << endl << endl;
+				cout << "Error, cannot move there. Please try again" << endl << endl;
 				goto try_CPU;
 			}
 		else
 		{
-			cout << "Error incorect place, try again" << endl << endl;
+			cout << "Error, incorect place. Please try again" << endl << endl;
 			goto try_CPU;
 		}
 	}
@@ -434,6 +439,7 @@ try_CPU:
 	turn++;
 }
 
+// This function is used when to people play against each other
 void person()
 {
 try_person:
@@ -454,7 +460,7 @@ try_person:
 			NW = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	}
@@ -464,7 +470,7 @@ try_person:
 			N = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	}
@@ -473,7 +479,7 @@ try_person:
 			NE = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else if (place == 4)
@@ -481,7 +487,7 @@ try_person:
 			W = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else if (place == 5)
@@ -489,7 +495,7 @@ try_person:
 			CEN = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else if (place == 6)
@@ -497,7 +503,7 @@ try_person:
 			E = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else if (place == 7)
@@ -505,7 +511,7 @@ try_person:
 			SW = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else if (place == 8)
@@ -513,7 +519,7 @@ try_person:
 			S = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else if (place == 9)
@@ -521,12 +527,12 @@ try_person:
 			SE = player_turn();
 		else
 		{
-			cout << "Error cannot move there, try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
 	else
 	{
-		cout << "Error incorect place, try again" << endl << endl;
+		cout << "Error, incorect place. Please try again" << endl << endl;
 		goto try_person;
 	}
 	draw_board();
@@ -541,7 +547,7 @@ start:
 	cin >> players;
 	if (players > 2 || players < 0)
 	{
-		cout << "Error, invalid number of players, try again" << endl << endl;
+		cout << "Error, invalid number of players. Please try again" << endl << endl;
 		goto start;
 	}
 	system("cls");
@@ -555,7 +561,7 @@ start:
 			person();
 		else
 		{
-			cout << "Error, don't know who is playing. Please try again." << endl;
+			cout << "Error, do not know who is playing. Please try again." << endl;
 			goto start;
 		}
 		place = 0;
@@ -579,7 +585,7 @@ start:
 				draw++;
 			}
 			else
-				cout << "Error unknown winner" << endl << endl;
+				cout << "Error, unknown winner" << endl << endl;
 			game++;
 			draw_board();
 			cout << endl << "Out of " << game << " game(s) played " << "X has " << x_win << " win(s), O has "
