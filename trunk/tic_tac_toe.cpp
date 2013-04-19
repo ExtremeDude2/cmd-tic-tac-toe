@@ -6,11 +6,13 @@
 
 /*
 To do list:
-	make CPU
-	finish drawing board
+make CPU
+finish drawing board // Gotta go fast
+Try to make UI // Please?
 */
 
 #include <iostream>
+#include <ctime>
 #include "board.h"
 
 using namespace std;
@@ -22,13 +24,17 @@ unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE =
 // This function is CPU X's logic
 void CPU_X()
 {
-
+	// Temp use of rand
+	srand((unsigned)time(0));
+	place = (rand()%9)+1;
 }
 
 // This function is CPU O's logic
 void CPU_O()
 {
-
+	// Temp use of rand
+	srand((unsigned)time(0));
+	place = (rand()%9)+1;
 }
 
 // This function is used to determine whos turn it is
@@ -81,175 +87,96 @@ try_CPU2:
 	if (player_turn() == 1)
 	{
 		cout << "X(CPU)'s turn" << endl;
-		if (place == 1)
-		{
-			if (!NW)
-				NW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		}
-		else if (place == 2)
-		{
-			if (!N)
-				N = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		}
-		else if (place == 3)
-			if (!NE)
-				NE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 4)
-			if (!W)
-				W = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 5)
-			if (!CEN)
-				CEN = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 6)
-			if (!E)
-				E = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 7)
-			if (!SW)
-				SW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 8)
-			if (!S)
-				S = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 9)
-			if (!SE)
-				SE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else
-		{
-			cout << "Error, incorect place. Please try again" << endl << endl;
-			goto try_CPU2;
-		}
+		CPU_X();
 	}
 	else if (player_turn() == 2)
 	{
 		cout << "O(CPU)'s turn" << endl;
-		if (place == 1)
-		{
-			if (!NW)
-				NW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		}
-		else if (place == 2)
-		{
-			if (!N)
-				N = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again"" << endl << endl;
-				goto try_CPU2;
-			}
-		}
-		else if (place == 3)
-			if (!NE)
-				NE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 4)
-			if (!W)
-				W = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 5)
-			if (!CEN)
-				CEN = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 6)
-			if (!E)
-				E = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 7)
-			if (!SW)
-				SW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 8)
-			if (!S)
-				S = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else if (place == 9)
-			if (!SE)
-				SE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU2;
-			}
-		else
-		{
-			cout << "Error, incorect place. Please try again" << endl << endl;
-			goto try_CPU2;
-		}
+		CPU_O();
 	}
 	else
 		cout << "Error, unknown turn" << endl;
+	if (place == 1)
+	{
+		if (!NW)
+			NW = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	}
+	else if (place == 2)
+	{
+		if (!N)
+			N = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	}
+	else if (place == 3)
+		if (!NE)
+			NE = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else if (place == 4)
+		if (!W)
+			W = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else if (place == 5)
+		if (!CEN)
+			CEN = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else if (place == 6)
+		if (!E)
+			E = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else if (place == 7)
+		if (!SW)
+			SW = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else if (place == 8)
+		if (!S)
+			S = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else if (place == 9)
+		if (!SE)
+			SE = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU2;
+		}
+	else
+	{
+		cout << "Error, incorect place. Please try again" << endl << endl;
+		goto try_CPU2;
+	}
 	draw_board();
 	turn++;
 }
@@ -266,180 +193,100 @@ try_CPU:
 		cout <<	"East (6), South West (7), South (8), South East (9): ";
 		cin >> place;
 		cout << endl;
-		if (place == 1)
-		{
-			if (!NW)
-				NW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		}
-		else if (place == 2)
-		{
-			if (!N)
-				N = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		}
-		else if (place == 3)
-			if (!NE)
-				NE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 4)
-			if (!W)
-				W = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 5)
-			if (!CEN)
-				CEN = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 6)
-			if (!E)
-				E = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 7)
-			if (!SW)
-				SW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 8)
-			if (!S)
-				S = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 9)
-			if (!SE)
-				SE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else
-		{
-			cout << "Error, incorect place. Please try again" << endl << endl;
-			goto try_CPU;
-		}
 	}
 	else if (player_turn() == 2)
 	{
 		cout << "O(CPU)'s turn" << endl;
-		if (place == 1)
-		{
-			if (!NW)
-				NW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		}
-		else if (place == 2)
-		{
-			if (!N)
-				N = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		}
-		else if (place == 3)
-			if (!NE)
-				NE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 4)
-			if (!W)
-				W = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 5)
-			if (!CEN)
-				CEN = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 6)
-			if (!E)
-				E = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 7)
-			if (!SW)
-				SW = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 8)
-			if (!S)
-				S = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
-		else if (place == 9)
-			if (!SE)
-				SE = player_turn();
-			else
-			{
-				cout << "Error, cannot move there. Please try again" << endl << endl;
-				goto try_CPU;
-			}
+		CPU_O();
+	}
+	else
+		cout << "Error, unknown turn" << endl;
+	if (place == 1)
+	{
+		if (!NW)
+			NW = player_turn();
 		else
 		{
-			cout << "Error, incorect place. Please try again" << endl << endl;
+			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
 	}
+	else if (place == 2)
+	{
+		if (!N)
+			N = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	}
+	else if (place == 3)
+		if (!NE)
+			NE = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	else if (place == 4)
+		if (!W)
+			W = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	else if (place == 5)
+		if (!CEN)
+			CEN = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	else if (place == 6)
+		if (!E)
+			E = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	else if (place == 7)
+		if (!SW)
+			SW = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	else if (place == 8)
+		if (!S)
+			S = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
+	else if (place == 9)
+		if (!SE)
+			SE = player_turn();
+		else
+		{
+			cout << "Error, cannot move there. Please try again" << endl << endl;
+			goto try_CPU;
+		}
 	else
-		cout << "Unknown turn" << endl;
-	draw_board();
-	turn++;
+	{
+		cout << "Error, incorect place. Please try again" << endl << endl;
+		goto try_CPU;
+	}
+draw_board();
+turn++;
 }
 
-// This function is used when to people play against each other
+// This function is used when 2 people play against each other
 void person()
 {
 try_person:
@@ -561,7 +408,7 @@ start:
 			person();
 		else
 		{
-			cout << "Error, do not know who is playing. Please try again." << endl;
+			cout << "Error, do not know how many people/CPU's are playing. Please try again." << endl;
 			goto start;
 		}
 		place = 0;
