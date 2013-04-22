@@ -6,35 +6,41 @@
 
 /*
 To do list:
-make CPU
+make CPU // Please?
 finish drawing board // Gotta go fast
 Try to make UI // Please?
 */
 
 #include <iostream>
-#include <ctime>
+#include <Windows.h>
 #include "board.h"
 
 using namespace std;
 
-// 0 = none, 1 = X, 2 = O, 3 = draw
+// 0 = none, 1 = X, 2 = O, 3 = tie
 unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE = 0,
-	turn = 0, game = 0, x_win = 0, o_win = 0, draw = 0, playing = 1, place = 0, players = 0;
+	turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0;
 
 // This function is CPU X's logic
 void CPU_X()
 {
 	// Temp use of rand
-	srand((unsigned)time(0));
-	place = (rand()%9)+1;
+	SYSTEMTIME lt;
+    GetLocalTime(&lt);
+    int ran = lt.wMilliseconds;
+    srand(ran);
+	place = (rand() % 9) + 1;
 }
 
 // This function is CPU O's logic
 void CPU_O()
 {
 	// Temp use of rand
-	srand((unsigned)time(0));
-	place = (rand()%9)+1;
+	SYSTEMTIME lt;
+    GetLocalTime(&lt);
+    int ran = lt.wMilliseconds;
+    srand(ran);
+	place = (rand() % 9) + 1;
 }
 
 // This function is used to determine whos turn it is
@@ -117,6 +123,7 @@ try_CPU2:
 		}
 	}
 	else if (place == 3)
+	{
 		if (!NE)
 			NE = player_turn();
 		else
@@ -124,7 +131,9 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else if (place == 4)
+	{
 		if (!W)
 			W = player_turn();
 		else
@@ -132,7 +141,9 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else if (place == 5)
+	{
 		if (!CEN)
 			CEN = player_turn();
 		else
@@ -140,7 +151,9 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else if (place == 6)
+	{
 		if (!E)
 			E = player_turn();
 		else
@@ -148,7 +161,9 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else if (place == 7)
+	{
 		if (!SW)
 			SW = player_turn();
 		else
@@ -156,7 +171,9 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else if (place == 8)
+	{
 		if (!S)
 			S = player_turn();
 		else
@@ -164,7 +181,9 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else if (place == 9)
+	{
 		if (!SE)
 			SE = player_turn();
 		else
@@ -172,6 +191,7 @@ try_CPU2:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU2;
 		}
+	}
 	else
 	{
 		cout << "Error, incorect place. Please try again" << endl << endl;
@@ -222,6 +242,7 @@ try_CPU:
 		}
 	}
 	else if (place == 3)
+	{
 		if (!NE)
 			NE = player_turn();
 		else
@@ -229,7 +250,9 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else if (place == 4)
+	{
 		if (!W)
 			W = player_turn();
 		else
@@ -237,7 +260,9 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else if (place == 5)
+	{
 		if (!CEN)
 			CEN = player_turn();
 		else
@@ -245,7 +270,9 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else if (place == 6)
+	{
 		if (!E)
 			E = player_turn();
 		else
@@ -253,7 +280,9 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else if (place == 7)
+	{
 		if (!SW)
 			SW = player_turn();
 		else
@@ -261,7 +290,9 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else if (place == 8)
+	{
 		if (!S)
 			S = player_turn();
 		else
@@ -269,7 +300,9 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else if (place == 9)
+	{
 		if (!SE)
 			SE = player_turn();
 		else
@@ -277,6 +310,7 @@ try_CPU:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_CPU;
 		}
+	}
 	else
 	{
 		cout << "Error, incorect place. Please try again" << endl << endl;
@@ -322,6 +356,7 @@ try_person:
 		}
 	}
 	else if (place == 3)
+	{
 		if (!NE)
 			NE = player_turn();
 		else
@@ -329,7 +364,9 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else if (place == 4)
+	{
 		if (!W)
 			W = player_turn();
 		else
@@ -337,7 +374,9 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else if (place == 5)
+	{
 		if (!CEN)
 			CEN = player_turn();
 		else
@@ -345,7 +384,9 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else if (place == 6)
+	{
 		if (!E)
 			E = player_turn();
 		else
@@ -353,7 +394,9 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else if (place == 7)
+	{
 		if (!SW)
 			SW = player_turn();
 		else
@@ -361,7 +404,9 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else if (place == 8)
+	{
 		if (!S)
 			S = player_turn();
 		else
@@ -369,7 +414,9 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else if (place == 9)
+	{
 		if (!SE)
 			SE = player_turn();
 		else
@@ -377,6 +424,7 @@ try_person:
 			cout << "Error, cannot move there. Please try again" << endl << endl;
 			goto try_person;
 		}
+	}
 	else
 	{
 		cout << "Error, incorect place. Please try again" << endl << endl;
@@ -389,14 +437,10 @@ try_person:
 int main()
 {
 start:
+	// Ask the user how many human players there are (if any)
 	cout << "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? (switching number of players mid-game requires a restart)" << endl;
 	cout << "Note: All CPUs are very fast and you will likely not see them move." << endl;
 	cin >> players;
-	if (players > 2 || players < 0)
-	{
-		cout << "Error, invalid number of players. Please try again" << endl << endl;
-		goto start;
-	}
 	system("cls");
 	while (playing)
 	{
@@ -429,14 +473,14 @@ start:
 			else if (check_status() == 3)
 			{
 				cout << endl << "Draw, no one wins." << endl << endl;
-				draw++;
+				tie++;
 			}
 			else
 				cout << "Error, unknown winner" << endl << endl;
 			game++;
 			draw_board();
 			cout << endl << "Out of " << game << " game(s) played " << "X has " << x_win << " win(s), O has "
-				<< o_win << " win(s) and there have been " << draw << " draw(s)." << endl;
+				<< o_win << " win(s) and there have been " << tie << " draw(s)." << endl;
 			cout << endl << "Would you like to play again? (1 = yes, 0 = no): ";
 			cin >> playing;
 			reset();
