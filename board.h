@@ -540,7 +540,7 @@ void draw_board()
 		cout << "         |   X X   |   X X   " << endl;
 		cout << "         |  X   X  |  X   X  " << endl;
 	}
-	else if (NW == 1 && N == 0 && NE == 1)
+	else if (SW == 1 && N == 0 && SE == 1)
 	{
 		cout << "  X   X  |         |  X   X  " << endl;
 		cout << "   X X   |         |   X X   " << endl;
@@ -596,7 +596,7 @@ void draw_board()
 		cout << "         |  O   O  |  O   O  " << endl;
 		cout << "         |   OOO   |   OOO   " << endl;
 	}
-	else if (NW == 2 && N == 0 && NE == 2)
+	else if (SW == 2 && N == 0 && SE == 2)
 	{
 		cout << "   OOO   |         |   OOO   " << endl;
 		cout << "  O   O  |         |  O   O  " << endl;
