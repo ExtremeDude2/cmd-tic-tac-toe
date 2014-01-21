@@ -6,12 +6,16 @@
 
 /*
 To do list:
+Fix cross platform compatibility (started)
+Optimize horible code (use arrays instead of positions?)
 make CPU // No time D;
 Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 */
 
 #include <iostream>
+#ifdef _WIN32
 #include <Windows.h>
+#endif
 #include "board.h"
 
 using namespace std;
@@ -45,11 +49,7 @@ void CPU_O()
 // This function is used to determine whos turn it is
 unsigned short player_turn()
 {
-	if (turn == 0 || turn == 2 || turn == 4 || turn == 6 || turn == 8)
-		return 1;
-	if (turn == 1 || turn == 3 || turn == 5 || turn == 7)
-		return 2;
-	return 0;
+	return (turn % 2) + 1;
 }
 
 // This function resets all of the places and clears the screen
