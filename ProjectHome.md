@@ -1,0 +1,1 @@
+This is a tic-tac-toe game that runs in cmd (will only work on windows AFAIK because of "system("cls");"(which is commonly used in this program to clear the CMD screen) and windows.h, can easily be ported by removing these). Includes (horrible, they just move randomly D:) CPU players and maybe a <s>UI when finished</s> no UI for you!!1!
