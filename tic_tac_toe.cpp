@@ -73,51 +73,51 @@ unsigned short check_status()
  * horizontal tests
  */
     if (grid[TOP][LFT] == SET_X && grid[TOP][CNT] == SET_X && grid[TOP][RGT] == SET_X)
-        return 1;
+        return WIN_X;
     if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
-        return 1;
+        return WIN_X;
     if (grid[LOW][LFT] == SET_X && grid[LOW][CNT] == SET_X && grid[LOW][RGT] == SET_X)
-        return 1;
+        return WIN_X;
 
 /*
  * vertical tests
  */
     if (grid[TOP][LFT] == SET_X && grid[MID][LFT] == SET_X && grid[LOW][LFT] == SET_X)
-        return 1;
+        return WIN_X;
     if (grid[TOP][CNT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][CNT] == SET_X)
-        return 1;
+        return WIN_X;
     if (grid[TOP][RGT] == SET_X && grid[MID][RGT] == SET_X && grid[LOW][RGT] == SET_X)
-        return 1;
+        return WIN_X;
 
 /*
  * diagonal tests
  */
     if (grid[TOP][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][RGT] == SET_X)
-        return 1;
+        return WIN_X;
     if (grid[TOP][RGT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][LFT] == SET_X)
-        return 1;
+        return WIN_X;
 
 /*
  * samefag (repeated for other player) (lrn2usefunctions u nub!)
  */
     if (grid[TOP][LFT] == SET_O && grid[TOP][CNT] == SET_O && grid[TOP][RGT] == SET_O)
-        return 2;
+        return WIN_O;
     if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
-        return 2;
+        return WIN_O;
     if (grid[LOW][LFT] == SET_O && grid[LOW][CNT] == SET_O && grid[LOW][RGT] == SET_O)
-        return 2;
+        return WIN_O;
 
     if (grid[TOP][LFT] == SET_O && grid[MID][LFT] == SET_O && grid[LOW][LFT] == SET_O)
-        return 2;
+        return WIN_O;
     if (grid[TOP][CNT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][CNT] == SET_O)
-        return 2;
+        return WIN_O;
     if (grid[TOP][RGT] == SET_O && grid[MID][RGT] == SET_O && grid[LOW][RGT] == SET_O)
-        return 2;
+        return WIN_O;
 
     if (grid[TOP][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][RGT] == SET_O)
-        return 2;
+        return WIN_O;
     if (grid[TOP][RGT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][LFT] == SET_O)
-        return 2;
+        return WIN_O;
 
 /*
  * tied game (meaning you both suck)
@@ -127,12 +127,12 @@ unsigned short check_status()
         for (x = 0; x < GRID_SIZE; x++)
             test &= (grid[y][x] == SET_X) || (grid[y][x] == SET_O);
     if (test != 0 || turn >= 9)
-        return 3;
+        return DRAW;
 
 /*
  * game still on
  */
-	return 0;
+	return PLAYING;
 }
 
 // This function is used when 2 CPU's play against each other
@@ -540,17 +540,17 @@ start:
 		{
 			system("cls");
 			cout << "SCOREBOARD:" << endl;
-			if (check_status() == 1)
+			if (check_status() == WIN_X)
 			{
 				cout << endl << "X wins! It was done in " << turn << " turns." << endl << endl;
 				x_win++;
 			}
-			else if (check_status() == 2)
+			else if (check_status() == WIN_O)
 			{
 				cout << endl << "O wins! It was done in " << turn << " turns." << endl << endl;
 				o_win++;
 			}
-			else if (check_status() == 3)
+			else if (check_status() == DRAW)
 			{
 				cout << endl << "Tie, no one wins." << endl << endl;
 				tie++;

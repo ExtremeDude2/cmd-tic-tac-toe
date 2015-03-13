@@ -28,6 +28,11 @@ enum {
     SET_O
 };
 
+#define PLAYING     0
+#define WIN_X       (SET_X)
+#define WIN_O       (SET_O)
+#define DRAW        3
+
 extern unsigned short grid[GRID_SIZE][GRID_SIZE];
 
 // This function draws the board and any X's or O's
