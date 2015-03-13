@@ -20,7 +20,6 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 
 using namespace std;
 
-// 0 = none, 1 = X, 2 = O, 3 = tie
 unsigned short grid[GRID_SIZE][GRID_SIZE];
 unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0, error = 0;
 
@@ -59,7 +58,7 @@ void reset()
 
     for (y = 0; y < GRID_SIZE; y++)
         for (x = 0; x < GRID_SIZE; x++)
-            grid[y][x] = 0;
+            grid[y][x] = BLANK;
     turn = place = error = 0;
     system("cls"); /* <-- gay */
 }
@@ -73,51 +72,51 @@ unsigned short check_status()
 /*
  * horizontal tests
  */
-    if (grid[TOP][LFT] == 1 && grid[TOP][CNT] == 1 && grid[TOP][RGT] == 1)
+    if (grid[TOP][LFT] == SET_X && grid[TOP][CNT] == SET_X && grid[TOP][RGT] == SET_X)
         return 1;
-    if (grid[MID][LFT] == 1 && grid[MID][CNT] == 1 && grid[MID][RGT] == 1)
+    if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
         return 1;
-    if (grid[LOW][LFT] == 1 && grid[LOW][CNT] == 1 && grid[LOW][RGT] == 1)
+    if (grid[LOW][LFT] == SET_X && grid[LOW][CNT] == SET_X && grid[LOW][RGT] == SET_X)
         return 1;
 
 /*
  * vertical tests
  */
-    if (grid[TOP][LFT] == 1 && grid[MID][LFT] == 1 && grid[LOW][LFT] == 1)
+    if (grid[TOP][LFT] == SET_X && grid[MID][LFT] == SET_X && grid[LOW][LFT] == SET_X)
         return 1;
-    if (grid[TOP][CNT] == 1 && grid[MID][CNT] == 1 && grid[LOW][CNT] == 1)
+    if (grid[TOP][CNT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][CNT] == SET_X)
         return 1;
-    if (grid[TOP][RGT] == 1 && grid[MID][RGT] == 1 && grid[LOW][RGT] == 1)
+    if (grid[TOP][RGT] == SET_X && grid[MID][RGT] == SET_X && grid[LOW][RGT] == SET_X)
         return 1;
 
 /*
  * diagonal tests
  */
-    if (grid[TOP][LFT] == 1 && grid[MID][CNT] == 1 && grid[LOW][RGT] == 1)
+    if (grid[TOP][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][RGT] == SET_X)
         return 1;
-    if (grid[TOP][RGT] == 1 && grid[MID][CNT] == 1 && grid[LOW][LFT] == 1)
+    if (grid[TOP][RGT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][LFT] == SET_X)
         return 1;
 
 /*
  * samefag (repeated for other player) (lrn2usefunctions u nub!)
  */
-    if (grid[TOP][LFT] == 2 && grid[TOP][CNT] == 2 && grid[TOP][RGT] == 2)
+    if (grid[TOP][LFT] == SET_O && grid[TOP][CNT] == SET_O && grid[TOP][RGT] == SET_O)
         return 2;
-    if (grid[MID][LFT] == 2 && grid[MID][CNT] == 2 && grid[MID][RGT] == 2)
+    if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
         return 2;
-    if (grid[LOW][LFT] == 2 && grid[LOW][CNT] == 2 && grid[LOW][RGT] == 2)
-        return 2;
-
-    if (grid[TOP][LFT] == 2 && grid[MID][LFT] == 2 && grid[LOW][LFT] == 2)
-        return 2;
-    if (grid[TOP][CNT] == 2 && grid[MID][CNT] == 2 && grid[LOW][CNT] == 2)
-        return 2;
-    if (grid[TOP][RGT] == 2 && grid[MID][RGT] == 2 && grid[LOW][RGT] == 2)
+    if (grid[LOW][LFT] == SET_O && grid[LOW][CNT] == SET_O && grid[LOW][RGT] == SET_O)
         return 2;
 
-    if (grid[TOP][LFT] == 2 && grid[MID][CNT] == 2 && grid[LOW][RGT] == 2)
+    if (grid[TOP][LFT] == SET_O && grid[MID][LFT] == SET_O && grid[LOW][LFT] == SET_O)
         return 2;
-    if (grid[TOP][RGT] == 2 && grid[MID][CNT] == 2 && grid[LOW][LFT] == 2)
+    if (grid[TOP][CNT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][CNT] == SET_O)
+        return 2;
+    if (grid[TOP][RGT] == SET_O && grid[MID][RGT] == SET_O && grid[LOW][RGT] == SET_O)
+        return 2;
+
+    if (grid[TOP][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][RGT] == SET_O)
+        return 2;
+    if (grid[TOP][RGT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][LFT] == SET_O)
         return 2;
 
 /*
@@ -126,7 +125,7 @@ unsigned short check_status()
     test  = 1;
     for (y = 0; y < GRID_SIZE; y++)
         for (x = 0; x < GRID_SIZE; x++)
-            test &= (grid[y][x] == 1) || (grid[y][x] == 2);
+            test &= (grid[y][x] == SET_X) || (grid[y][x] == SET_O);
     if (test != 0 || turn >= 9)
         return 3;
 
@@ -140,12 +139,12 @@ unsigned short check_status()
 void CPU2()
 {
 try_CPU2:
-	if (player_turn() == 1)
+	if (player_turn() == SET_X)
 	{
 		cout << "X(CPU)'s turn" << endl;
 		CPU_X();
 	}
-	else if (player_turn() == 2)
+	else if (player_turn() == SET_O)
 	{
 		cout << "O(CPU)'s turn" << endl;
 		CPU_O();
@@ -262,7 +261,7 @@ try_CPU2:
 void CPU()
 {
 try_CPU:
-	if (player_turn() == 1)
+	if (player_turn() == SET_X)
 	{
 		cout << "X's turn" << endl;
 		cout << endl << "Please select where you would like to go, options include:" << endl;
@@ -271,7 +270,7 @@ try_CPU:
 		cin >> place;
 		cout << endl;
 	}
-	else if (player_turn() == 2)
+	else if (player_turn() == SET_O)
 	{
 		cout << "O(CPU)'s turn" << endl;
 		CPU_O();
@@ -391,9 +390,9 @@ try_CPU:
 void person()
 {
 try_person:
-	if (player_turn() == 1)
+	if (player_turn() == SET_X)
 		cout << "X's turn" << endl;
-	else if (player_turn() == 2)
+	else if (player_turn() == SET_O)
 		cout << "O's turn" << endl;
 	else
 	{
