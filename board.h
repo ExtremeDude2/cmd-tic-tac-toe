@@ -63,7 +63,7 @@ enum {
 #define WIN_O       (SET_O)
 #define DRAW        3
 
-extern unsigned short grid[GRID_SIZE][GRID_SIZE];
+extern unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 
 // This function draws the board and any X's or O's
 void draw_board()
