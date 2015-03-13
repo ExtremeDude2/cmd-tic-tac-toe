@@ -139,21 +139,20 @@ unsigned short check_status()
 void CPU2()
 {
 try_CPU2:
-	if (player_turn() == SET_X)
-	{
-		cout << "X(CPU)'s turn" << endl;
-		CPU_X();
-	}
-	else if (player_turn() == SET_O)
-	{
-		cout << "O(CPU)'s turn" << endl;
-		CPU_O();
-	}
-	else
-	{
-		cout << "Error, unknown turn" << endl;
-		error++;
-	}
+    switch (player_turn())
+    {
+    case SET_X:
+        puts("X(CPU)'s turn");
+        CPU_X();
+        break;
+    case SET_O:
+        puts("O(CPU)'s turn");
+        CPU_O();
+        break;
+    default:
+        puts("Error, unknown turn");
+        error++;
+    }
 
 /* to do:  wtf man lrn2switch */
 	if (place == TOP_LEFT)
@@ -261,25 +260,28 @@ try_CPU2:
 void CPU()
 {
 try_CPU:
-	if (player_turn() == SET_X)
-	{
-		cout << "X's turn" << endl;
-		cout << endl << "Please select where you would like to go, options include:" << endl;
-		cout << "Nort West (1), North (2), North East (3), West (4), Center (5)," << endl;
-		cout <<	"East (6), South West (7), South (8), South East (9): ";
-		cin >> place;
-		cout << endl;
-	}
-	else if (player_turn() == SET_O)
-	{
-		cout << "O(CPU)'s turn" << endl;
-		CPU_O();
-	}
-	else
-	{
-		cout << "Error, unknown turn" << endl;
-		error++;
-	}
+    switch (player_turn())
+    {
+    case SET_X:
+        puts("X's turn");
+        putchar('\n');
+        fputs(
+            "Please select where you would like to go, options include:\n"\
+            "Nort West (1), North (2), North East (3), West (4), Center (5),\n"\
+            "East (6), South West (7), South (8), South East (9):", stdout
+        );
+        putchar(' ');
+        cin >> place;
+        putchar('\n');
+        break;
+    case SET_O:
+        puts("O(CPU)'s turn");
+        CPU_O();
+        break;
+    default:
+        puts("Error, unknown turn");
+        error++;
+    }
 
 	if (place == TOP_LEFT)
 	{
@@ -394,15 +396,19 @@ try_CPU:
 void person()
 {
 try_person:
-	if (player_turn() == SET_X)
-		cout << "X's turn" << endl;
-	else if (player_turn() == SET_O)
-		cout << "O's turn" << endl;
-	else
-	{
-		cout << "Error, unknown turn" << endl;
-		error++;
-	}
+    switch (player_turn())
+    {
+    case SET_X:
+        puts("X's turn");
+        break;
+    case SET_O:
+        puts("O's turn");
+        break;
+    default:
+        puts("Error, unknown turn");
+        error++;
+    }
+
 	cout << endl << "Please select where you would like to go, options include:" << endl;
 	cout << "Nort West (1), North (2), North East (3), West (4), Center (5)," << endl;
 	cout <<	"East (6), South West (7), South (8), South East (9): ";
