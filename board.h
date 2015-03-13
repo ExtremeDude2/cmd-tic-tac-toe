@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#include <stdio.h>
+
 #define GRID_COMPLEXITY     3
 #define GRID_DIMENSIONS     2
 
@@ -285,276 +287,226 @@ void draw_board()
 		cout << "         |         |         " << endl;
 	}
 
+    puts("---------+---------+---------");
+
 	if (grid[MID][LFT] == SET_X && grid[MID][CNT] == BLANK && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |         |         " << endl;
 		cout << "   X X   |         |         " << endl;
 		cout << "    X    |         |         " << endl;
 		cout << "   X X   |         |         " << endl;
 		cout << "  X   X  |         |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == SET_X && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |  X   X  |         " << endl;
 		cout << "         |   X X   |         " << endl;
 		cout << "         |    X    |         " << endl;
 		cout << "         |   X X   |         " << endl;
 		cout << "         |  X   X  |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == BLANK && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |         |  X   X  " << endl;
 		cout << "         |         |   X X   " << endl;
 		cout << "         |         |    X    " << endl;
 		cout << "         |         |   X X   " << endl;
 		cout << "         |         |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |  X   X  |         " << endl;
 		cout << "   X X   |   X X   |         " << endl;
 		cout << "    X    |    X    |         " << endl;
 		cout << "   X X   |   X X   |         " << endl;
 		cout << "  X   X  |  X   X  |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |  X   X  |  X   X  " << endl;
 		cout << "         |   X X   |   X X   " << endl;
 		cout << "         |    X    |    X    " << endl;
 		cout << "         |   X X   |   X X   " << endl;
 		cout << "         |  X   X  |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == BLANK && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |         |  X   X  " << endl;
 		cout << "   X X   |         |   X X   " << endl;
 		cout << "    X    |         |    X    " << endl;
 		cout << "   X X   |         |   X X   " << endl;
 		cout << "  X   X  |         |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |  X   X  |  X   X  " << endl;
 		cout << "   X X   |   X X   |   X X   " << endl;
 		cout << "    X    |    X    |    X    " << endl;
 		cout << "   X X   |   X X   |   X X   " << endl;
 		cout << "  X   X  |  X   X  |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == BLANK && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |         |         " << endl;
 		cout << "  O   O  |         |         " << endl;
 		cout << "  O   O  |         |         " << endl;
 		cout << "  O   O  |         |         " << endl;
 		cout << "   OOO   |         |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == SET_O && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |   OOO   |         " << endl;
 		cout << "         |  O   O  |         " << endl;
 		cout << "         |  O   O  |         " << endl;
 		cout << "         |  O   O  |         " << endl;
 		cout << "         |   OOO   |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == BLANK && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |         |   OOO   " << endl;
 		cout << "         |         |  O   O  " << endl;
 		cout << "         |         |  O   O  " << endl;
 		cout << "         |         |  O   O  " << endl;
 		cout << "         |         |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |   OOO   |         " << endl;
 		cout << "  O   O  |  O   O  |         " << endl;
 		cout << "  O   O  |  O   O  |         " << endl;
 		cout << "  O   O  |  O   O  |         " << endl;
 		cout << "   OOO   |   OOO   |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |   OOO   |   OOO   " << endl;
 		cout << "         |  O   O  |  O   O  " << endl;
 		cout << "         |  O   O  |  O   O  " << endl;
 		cout << "         |  O   O  |  O   O  " << endl;
 		cout << "         |   OOO   |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == BLANK && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |         |   OOO   " << endl;
 		cout << "  O   O  |         |  O   O  " << endl;
 		cout << "  O   O  |         |  O   O  " << endl;
 		cout << "  O   O  |         |  O   O  " << endl;
 		cout << "   OOO   |         |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |   OOO   |   OOO   " << endl;
 		cout << "  O   O  |  O   O  |  O   O  " << endl;
 		cout << "  O   O  |  O   O  |  O   O  " << endl;
 		cout << "  O   O  |  O   O  |  O   O  " << endl;
 		cout << "   OOO   |   OOO   |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |   OOO   |   OOO   " << endl;
 		cout << "   X X   |  O   O  |  O   O  " << endl;
 		cout << "    X    |  O   O  |  O   O  " << endl;
 		cout << "   X X   |  O   O  |  O   O  " << endl;
 		cout << "  X   X  |   OOO   |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_O && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |   OOO   |         " << endl;
 		cout << "   X X   |  O   O  |         " << endl;
 		cout << "    X    |  O   O  |         " << endl;
 		cout << "   X X   |  O   O  |         " << endl;
 		cout << "  X   X  |   OOO   |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |  X   X  |   OOO   " << endl;
 		cout << "   X X   |   X X   |  O   O  " << endl;
 		cout << "    X    |    X    |  O   O  " << endl;
 		cout << "   X X   |   X X   |  O   O  " << endl;
 		cout << "  X   X  |  X   X  |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |   OOO   |  X   X  " << endl;
 		cout << "   X X   |  O   O  |   X X   " << endl;
 		cout << "    X    |  O   O  |    X    " << endl;
 		cout << "   X X   |  O   O  |   X X   " << endl;
 		cout << "  X   X  |   OOO   |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |  X   X  |   OOO   " << endl;
 		cout << "         |   X X   |  O   O  " << endl;
 		cout << "         |    X    |  O   O  " << endl;
 		cout << "         |   X X   |  O   O  " << endl;
 		cout << "         |  X   X  |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == BLANK && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |   OOO   |  X   X  " << endl;
 		cout << "         |  O   O  |   X X   " << endl;
 		cout << "         |  O   O  |    X    " << endl;
 		cout << "         |  O   O  |   X X   " << endl;
 		cout << "         |   OOO   |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_X && grid[MID][CNT] == BLANK && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "  X   X  |         |   OOO   " << endl;
 		cout << "   X X   |         |  O   O  " << endl;
 		cout << "    X    |         |  O   O  " << endl;
 		cout << "   X X   |         |  O   O  " << endl;
 		cout << "  X   X  |         |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_O)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |  X   X  |   OOO   " << endl;
 		cout << "  O   O  |   X X   |  O   O  " << endl;
 		cout << "  O   O  |    X    |  O   O  " << endl;
 		cout << "  O   O  |   X X   |  O   O  " << endl;
 		cout << "   OOO   |  X   X  |   OOO   " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == BLANK && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |         |  X   X  " << endl;
 		cout << "  O   O  |         |   X X   " << endl;
 		cout << "  O   O  |         |    X    " << endl;
 		cout << "  O   O  |         |   X X   " << endl;
 		cout << "   OOO   |         |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |   OOO   |  X   X  " << endl;
 		cout << "  O   O  |  O   O  |   X X   " << endl;
 		cout << "  O   O  |  O   O  |    X    " << endl;
 		cout << "  O   O  |  O   O  |   X X   " << endl;
 		cout << "   OOO   |   OOO   |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_X && grid[MID][RGT] == BLANK)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |  X   X  |         " << endl;
 		cout << "  O   O  |   X X   |         " << endl;
 		cout << "  O   O  |    X    |         " << endl;
 		cout << "  O   O  |   X X   |         " << endl;
 		cout << "   OOO   |  X   X  |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |  X   X  |  X   X  " << endl;
 		cout << "  O   O  |   X X   |   X X   " << endl;
 		cout << "  O   O  |    X    |    X    " << endl;
 		cout << "  O   O  |   X X   |   X X   " << endl;
 		cout << "   OOO   |  X   X  |  X   X  " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
 	else
 	{
-		cout << "---------+---------+---------" << endl;
 		cout << "         |         |         " << endl;
 		cout << "         |         |         " << endl;
 		cout << "         |         |         " << endl;
 		cout << "         |         |         " << endl;
 		cout << "         |         |         " << endl;
-		cout << "---------+---------+---------" << endl;
 	}
+
+    puts("---------+---------+---------");
 
 	if (grid[LOW][LFT] == SET_X && grid[LOW][CNT] == BLANK && grid[LOW][RGT] == BLANK)
 	{
@@ -773,5 +725,5 @@ void draw_board()
 		cout << "         |         |         " << endl;
 	}
 
-	cout << endl;
+    putchar('\n');
 }
