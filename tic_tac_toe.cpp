@@ -7,7 +7,7 @@
 /*
 To do list:
 Fix cross platform compatibility (started)
-Optimize horible code (use arrays instead of positions?)
+Optimize horrible code
 make CPU // No time D;
 Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 */
@@ -21,8 +21,8 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 using namespace std;
 
 // 0 = none, 1 = X, 2 = O, 3 = tie
-unsigned short NW = 0, N = 0, NE = 0, W = 0, CEN = 0, E = 0, SW = 0, S = 0, SE = 0,
-	turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0, error = 0;
+unsigned short grid[GRID_SIZE][GRID_SIZE];
+unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0, error = 0;
 
 // This function is CPU X's logic
 void CPU_X()
@@ -55,33 +55,84 @@ unsigned short player_turn()
 // This function resets all of the places and clears the screen
 void reset()
 {
-	NW = N = NE = W = CEN = E = SW = S = SE = turn = place = error = 0;
-	system("cls");
+    int x, y;
+
+    for (y = 0; y < GRID_SIZE; y++)
+        for (x = 0; x < GRID_SIZE; x++)
+            grid[y][x] = 0;
+    turn = place = error = 0;
+    system("cls"); /* <-- gay */
 }
 
 // This function checks to see if anyone has won or if there is a tie
 unsigned short check_status()
 {
-	if (((NW == 1) && (N == 1) && (NE == 1)) || ((W == 1 && E == 1 && CEN == 1))
-		|| ((SW == 1) && (S == 1) && (SE == 1)) || ((NW == 1) && (W == 1) && (SW == 1))
-		|| ((N == 1) && (S == 1) && (CEN == 1)) || ((NE == 1) && (E == 1) && (SE == 1))
-		|| ((NW == 1) && (SE == 1) && (CEN == 1)) || ((NE == 1) && (SW == 1) && (CEN == 1)))
-	{
-		return 1;
-	}
-	if (((NW == 2) && (N == 2) && (NE == 2)) || ((W == 2) && (E == 2) && (CEN == 2))
-		|| ((SW == 2) && (S == 2) && (SE == 2)) || ((NW == 2) && (W == 2) && (SW == 2))
-		|| ((N == 2) && (S == 2) && (CEN == 2)) || ((NE == 2) && (E == 2) && (SE == 2))
-		|| ((NW == 2) && (SE == 2) && (CEN == 2)) || ((NE == 2) && (SW == 2) && (CEN == 2)))
-	{
-		return 2;
-	}
-	if (((NW == 1) || (NW == 2)) && ((N == 1) || (N == 2)) && ((NE == 1) || (NE == 2))
-		&& ((E == 1) || (E == 2)) && ((SE == 1) || (SE == 2)) && ((S == 1) || (SE == 2))
-		&& ((SW == 1) || (SW == 2)) && ((W == 1) || (W == 2)) && ((CEN == 1) || (CEN == 2)) || turn >= 9)
-	{
-		return 3;
-	}
+    unsigned int test;
+    int x, y;
+
+/*
+ * horizontal tests
+ */
+    if (grid[TOP][LFT] == 1 && grid[TOP][CNT] == 1 && grid[TOP][RGT] == 1)
+        return 1;
+    if (grid[MID][LFT] == 1 && grid[MID][CNT] == 1 && grid[MID][RGT] == 1)
+        return 1;
+    if (grid[LOW][LFT] == 1 && grid[LOW][CNT] == 1 && grid[LOW][RGT] == 1)
+        return 1;
+
+/*
+ * vertical tests
+ */
+    if (grid[TOP][LFT] == 1 && grid[MID][LFT] == 1 && grid[LOW][LFT] == 1)
+        return 1;
+    if (grid[TOP][CNT] == 1 && grid[MID][CNT] == 1 && grid[LOW][CNT] == 1)
+        return 1;
+    if (grid[TOP][RGT] == 1 && grid[MID][RGT] == 1 && grid[LOW][RGT] == 1)
+        return 1;
+
+/*
+ * diagonal tests
+ */
+    if (grid[TOP][LFT] == 1 && grid[MID][CNT] == 1 && grid[LOW][RGT] == 1)
+        return 1;
+    if (grid[TOP][RGT] == 1 && grid[MID][CNT] == 1 && grid[LOW][LFT] == 1)
+        return 1;
+
+/*
+ * samefag (repeated for other player) (lrn2usefunctions u nub!)
+ */
+    if (grid[TOP][LFT] == 2 && grid[TOP][CNT] == 2 && grid[TOP][RGT] == 2)
+        return 2;
+    if (grid[MID][LFT] == 2 && grid[MID][CNT] == 2 && grid[MID][RGT] == 2)
+        return 2;
+    if (grid[LOW][LFT] == 2 && grid[LOW][CNT] == 2 && grid[LOW][RGT] == 2)
+        return 2;
+
+    if (grid[TOP][LFT] == 2 && grid[MID][LFT] == 2 && grid[LOW][LFT] == 2)
+        return 2;
+    if (grid[TOP][CNT] == 2 && grid[MID][CNT] == 2 && grid[LOW][CNT] == 2)
+        return 2;
+    if (grid[TOP][RGT] == 2 && grid[MID][RGT] == 2 && grid[LOW][RGT] == 2)
+        return 2;
+
+    if (grid[TOP][LFT] == 2 && grid[MID][CNT] == 2 && grid[LOW][RGT] == 2)
+        return 2;
+    if (grid[TOP][RGT] == 2 && grid[MID][CNT] == 2 && grid[LOW][LFT] == 2)
+        return 2;
+
+/*
+ * tied game (meaning you both suck)
+ */
+    test  = 1;
+    for (y = 0; y < GRID_SIZE; y++)
+        for (x = 0; x < GRID_SIZE; x++)
+            test &= (grid[y][x] == 1) || (grid[y][x] == 2);
+    if (test != 0 || turn >= 9)
+        return 3;
+
+/*
+ * game still on
+ */
 	return 0;
 }
 
@@ -104,10 +155,12 @@ try_CPU2:
 		cout << "Error, unknown turn" << endl;
 		error++;
 	}
+
+/* to do:  wtf man lrn2switch */
 	if (place == 1)
 	{
-		if (!NW)
-			NW = player_turn();
+		if (!grid[TOP][LFT])
+			grid[TOP][LFT] = player_turn();
 		else
 		{
 			// Don't worry about outputing an error if the CPU is moving as it it random and is bound to do so
@@ -117,8 +170,8 @@ try_CPU2:
 	}
 	else if (place == 2)
 	{
-		if (!N)
-			N = player_turn();
+		if (!grid[TOP][CNT])
+			grid[TOP][CNT] = player_turn();
 		else
 		{
 			error++;
@@ -127,8 +180,8 @@ try_CPU2:
 	}
 	else if (place == 3)
 	{
-		if (!NE)
-			NE = player_turn();
+		if (!grid[TOP][RGT])
+			grid[TOP][RGT] = player_turn();
 		else
 		{
 			error++;
@@ -137,8 +190,8 @@ try_CPU2:
 	}
 	else if (place == 4)
 	{
-		if (!W)
-			W = player_turn();
+		if (!grid[MID][LFT])
+			grid[MID][LFT] = player_turn();
 		else
 		{
 			error++;
@@ -147,8 +200,8 @@ try_CPU2:
 	}
 	else if (place == 5)
 	{
-		if (!CEN)
-			CEN = player_turn();
+		if (!grid[MID][CNT])
+			grid[MID][CNT] = player_turn();
 		else
 		{
 			error++;
@@ -157,8 +210,8 @@ try_CPU2:
 	}
 	else if (place == 6)
 	{
-		if (!E)
-			E = player_turn();
+		if (!grid[MID][RGT])
+			grid[MID][RGT] = player_turn();
 		else
 		{
 			error++;
@@ -167,8 +220,8 @@ try_CPU2:
 	}
 	else if (place == 7)
 	{
-		if (!SW)
-			SW = player_turn();
+		if (!grid[LOW][LFT])
+			grid[LOW][LFT] = player_turn();
 		else
 		{
 			error++;
@@ -177,8 +230,8 @@ try_CPU2:
 	}
 	else if (place == 8)
 	{
-		if (!S)
-			S = player_turn();
+		if (!grid[LOW][CNT])
+			grid[LOW][CNT] = player_turn();
 		else
 		{
 			error++;
@@ -187,8 +240,8 @@ try_CPU2:
 	}
 	else if (place == 9)
 	{
-		if (!SE)
-			SE = player_turn();
+		if (!grid[LOW][RGT])
+			grid[LOW][RGT] = player_turn();
 		else
 		{
 			error++;
@@ -227,8 +280,8 @@ try_CPU:
 		cout << "Error, unknown turn" << endl;
 	if (place == 1)
 	{
-		if (!NW)
-			NW = player_turn();
+		if (!grid[TOP][LFT])
+			grid[TOP][LFT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -238,8 +291,8 @@ try_CPU:
 	}
 	else if (place == 2)
 	{
-		if (!N)
-			N = player_turn();
+		if (!grid[TOP][CNT])
+			grid[TOP][CNT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -249,8 +302,8 @@ try_CPU:
 	}
 	else if (place == 3)
 	{
-		if (!NE)
-			NE = player_turn();
+		if (!grid[TOP][RGT])
+			grid[TOP][RGT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -260,8 +313,8 @@ try_CPU:
 	}
 	else if (place == 4)
 	{
-		if (!W)
-			W = player_turn();
+		if (!grid[MID][LFT])
+			grid[MID][LFT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -271,8 +324,8 @@ try_CPU:
 	}
 	else if (place == 5)
 	{
-		if (!CEN)
-			CEN = player_turn();
+		if (!grid[MID][CNT])
+			grid[MID][CNT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -282,8 +335,8 @@ try_CPU:
 	}
 	else if (place == 6)
 	{
-		if (!E)
-			E = player_turn();
+		if (!grid[MID][RGT])
+			grid[MID][RGT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -293,8 +346,8 @@ try_CPU:
 	}
 	else if (place == 7)
 	{
-		if (!SW)
-			SW = player_turn();
+		if (!grid[LOW][LFT])
+			grid[LOW][LFT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -304,8 +357,8 @@ try_CPU:
 	}
 	else if (place == 8)
 	{
-		if (!S)
-			S = player_turn();
+		if (!grid[LOW][CNT])
+			grid[LOW][CNT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -315,8 +368,8 @@ try_CPU:
 	}
 	else if (place == 9)
 	{
-		if (!SE)
-			SE = player_turn();
+		if (!grid[LOW][RGT])
+			grid[LOW][RGT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -354,8 +407,8 @@ try_person:
 	cout << endl;
 	if (place == 1)
 	{
-		if (!NW)
-			NW = player_turn();
+		if (!grid[TOP][LFT])
+			grid[TOP][LFT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -365,8 +418,8 @@ try_person:
 	}
 	else if (place == 2)
 	{
-		if (!N)
-			N = player_turn();
+		if (!grid[TOP][CNT])
+			grid[TOP][CNT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -376,8 +429,8 @@ try_person:
 	}
 	else if (place == 3)
 	{
-		if (!NE)
-			NE = player_turn();
+		if (!grid[TOP][RGT])
+			grid[TOP][RGT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -387,8 +440,8 @@ try_person:
 	}
 	else if (place == 4)
 	{
-		if (!W)
-			W = player_turn();
+		if (!grid[MID][LFT])
+			grid[MID][LFT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -398,8 +451,8 @@ try_person:
 	}
 	else if (place == 5)
 	{
-		if (!CEN)
-			CEN = player_turn();
+		if (!grid[MID][CNT])
+			grid[MID][CNT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -409,8 +462,8 @@ try_person:
 	}
 	else if (place == 6)
 	{
-		if (!E)
-			E = player_turn();
+		if (!grid[MID][RGT])
+			grid[MID][RGT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -420,8 +473,8 @@ try_person:
 	}
 	else if (place == 7)
 	{
-		if (!SW)
-			SW = player_turn();
+		if (!grid[LOW][LFT])
+			grid[LOW][LFT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -431,8 +484,8 @@ try_person:
 	}
 	else if (place == 8)
 	{
-		if (!S)
-			S = player_turn();
+		if (!grid[LOW][CNT])
+			grid[LOW][CNT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
@@ -442,8 +495,8 @@ try_person:
 	}
 	else if (place == 9)
 	{
-		if (!SE)
-			SE = player_turn();
+		if (!grid[LOW][RGT])
+			grid[LOW][RGT] = player_turn();
 		else
 		{
 			cout << "Error, cannot move there. Please try again" << endl << endl;
