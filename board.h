@@ -8,7 +8,20 @@
 
 using namespace std;
 
-#define GRID_SIZE       3
+#define GRID_COMPLEXITY     3
+#define GRID_DIMENSIONS     2
+
+#if (GRID_DIMENSIONS == 1)
+#define GRID_SIZE       (GRID_COMPLEXITY)
+#elif (GRID_DIMENSIONS == 2)
+#define GRID_SIZE       ((GRID_COMPLEXITY)*(GRID_COMPLEXITY))
+#elif (GRID_DIMENSIONS == 3)
+#define GRID_SIZE       ((GRID_COMPLEXITY)*(GRID_COMPLEXITY)*(GRID_COMPLEXITY))
+#else
+#error https://www.youtube.com/watch?v=oIJ4APeqpeY
+#endif
+
+#define NUM_PLAYERS     2
 
 enum {
     TOP,

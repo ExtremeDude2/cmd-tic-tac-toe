@@ -20,7 +20,7 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 
 using namespace std;
 
-unsigned short grid[GRID_SIZE][GRID_SIZE];
+unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0, error = 0;
 
 // This function is CPU X's logic
@@ -31,7 +31,7 @@ void CPU_X()
 	GetLocalTime(&time);
 	int ran = time.wMilliseconds;
 	srand(ran);
-	place = (rand() % 9) + 1;
+	place = (rand() % GRID_SIZE) + 1;
 }
 
 // This function is CPU O's logic
@@ -42,13 +42,13 @@ void CPU_O()
 	GetLocalTime(&time);
 	int ran = time.wMilliseconds;
 	srand(ran);
-	place = (rand() % 9) + 1;
+	place = (rand() % GRID_SIZE) + 1;
 }
 
 // This function is used to determine whos turn it is
 unsigned short player_turn()
 {
-	return (turn % 2) + 1;
+	return (turn % NUM_PLAYERS) + 1;
 }
 
 // This function resets all of the places and clears the screen
@@ -56,8 +56,8 @@ void reset()
 {
     int x, y;
 
-    for (y = 0; y < GRID_SIZE; y++)
-        for (x = 0; x < GRID_SIZE; x++)
+    for (y = 0; y < GRID_COMPLEXITY; y++)
+        for (x = 0; x < GRID_COMPLEXITY; x++)
             grid[y][x] = BLANK;
     turn = place = error = 0;
     system("cls"); /* <-- gay */
@@ -123,10 +123,10 @@ unsigned short check_status()
  * tied game (meaning you both suck)
  */
     test  = 1;
-    for (y = 0; y < GRID_SIZE; y++)
-        for (x = 0; x < GRID_SIZE; x++)
+    for (y = 0; y < GRID_COMPLEXITY; y++)
+        for (x = 0; x < GRID_COMPLEXITY; x++)
             test &= (grid[y][x] == SET_X) || (grid[y][x] == SET_O);
-    if (test != 0 || turn >= 9)
+    if (test != 0 || turn >= GRID_SIZE)
         return DRAW;
 
 /*
