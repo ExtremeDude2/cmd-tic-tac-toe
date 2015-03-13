@@ -475,8 +475,8 @@ void draw_board()
 		cout << "   OOO   |         |  X   X  " << endl;
 		cout << "---------+---------+---------" << endl;
 	}
-	else if (grid[MID][LFT] == 2 && grid[TOP][CNT] == 2 && grid[TOP][RGT] == 1)
-	{ /* bookmark:  think you got a bug up thar m8! ^ */
+	else if (grid[MID][LFT] == 2 && grid[MID][CNT] == 2 && grid[MID][RGT] == 1)
+	{
 		cout << "---------+---------+---------" << endl;
 		cout << "   OOO   |   OOO   |  X   X  " << endl;
 		cout << "  O   O  |  O   O  |   X X   " << endl;
@@ -556,8 +556,8 @@ void draw_board()
 		cout << "         |   X X   |   X X   " << endl;
 		cout << "         |  X   X  |  X   X  " << endl;
 	}
-	else if (grid[LOW][LFT] == 1 && grid[TOP][CNT] == 0 && grid[LOW][RGT] == 1)
-	{ /* bookmark:  think you got a bug up thar m8! ^ */
+	else if (grid[LOW][LFT] == 1 && grid[LOW][CNT] == 0 && grid[LOW][RGT] == 1)
+	{
 		cout << "  X   X  |         |  X   X  " << endl;
 		cout << "   X X   |         |   X X   " << endl;
 		cout << "    X    |         |    X    " << endl;
@@ -612,8 +612,8 @@ void draw_board()
 		cout << "         |  O   O  |  O   O  " << endl;
 		cout << "         |   OOO   |   OOO   " << endl;
 	}
-	else if (grid[LOW][LFT] == 2 && grid[TOP][CNT] == 0 && grid[LOW][RGT] == 2)
-	{ /* bookmark:  think you got a bug up thar m8! ^ */
+	else if (grid[LOW][LFT] == 2 && grid[LOW][CNT] == 0 && grid[LOW][RGT] == 2)
+	{
 		cout << "   OOO   |         |   OOO   " << endl;
 		cout << "  O   O  |         |  O   O  " << endl;
 		cout << "  O   O  |         |  O   O  " << endl;
@@ -708,8 +708,8 @@ void draw_board()
 		cout << "  O   O  |  O   O  |   X X   " << endl;
 		cout << "   OOO   |   OOO   |  X   X  " << endl;
 	}
-	else if (grid[LOW][LFT] == 2 && grid[TOP][CNT] == 1 && grid[LOW][RGT] == 0)
-	{ /* bookmark:  think you got a bug up thar m8! ^ */
+	else if (grid[LOW][LFT] == 2 && grid[LOW][CNT] == 1 && grid[LOW][RGT] == 0)
+	{
 		cout << "   OOO   |  X   X  |         " << endl;
 		cout << "  O   O  |   X X   |         " << endl;
 		cout << "  O   O  |    X    |         " << endl;
