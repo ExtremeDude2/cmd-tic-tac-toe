@@ -156,7 +156,7 @@ try_CPU2:
 	}
 
 /* to do:  wtf man lrn2switch */
-	if (place == 1)
+	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
@@ -167,7 +167,7 @@ try_CPU2:
 			goto try_CPU2; // Return to begining of function to try again
 		}
 	}
-	else if (place == 2)
+	else if (place == TOP_CENTER)
 	{
 		if (!grid[TOP][CNT])
 			grid[TOP][CNT] = player_turn();
@@ -177,7 +177,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 3)
+	else if (place == TOP_RIGHT)
 	{
 		if (!grid[TOP][RGT])
 			grid[TOP][RGT] = player_turn();
@@ -187,7 +187,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 4)
+	else if (place == MID_LEFT)
 	{
 		if (!grid[MID][LFT])
 			grid[MID][LFT] = player_turn();
@@ -197,7 +197,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 5)
+	else if (place == MID_CENTER)
 	{
 		if (!grid[MID][CNT])
 			grid[MID][CNT] = player_turn();
@@ -207,7 +207,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 6)
+	else if (place == MID_RIGHT)
 	{
 		if (!grid[MID][RGT])
 			grid[MID][RGT] = player_turn();
@@ -217,7 +217,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 7)
+	else if (place == LOW_LEFT)
 	{
 		if (!grid[LOW][LFT])
 			grid[LOW][LFT] = player_turn();
@@ -227,7 +227,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 8)
+	else if (place == LOW_CENTER)
 	{
 		if (!grid[LOW][CNT])
 			grid[LOW][CNT] = player_turn();
@@ -237,7 +237,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 9)
+	else if (place == LOW_RIGHT)
 	{
 		if (!grid[LOW][RGT])
 			grid[LOW][RGT] = player_turn();
@@ -277,7 +277,7 @@ try_CPU:
 	}
 	else
 		cout << "Error, unknown turn" << endl;
-	if (place == 1)
+	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
@@ -288,7 +288,7 @@ try_CPU:
 			goto try_CPU; // Return to begining of function to try again
 		}
 	}
-	else if (place == 2)
+	else if (place == TOP_CENTER)
 	{
 		if (!grid[TOP][CNT])
 			grid[TOP][CNT] = player_turn();
@@ -299,7 +299,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 3)
+	else if (place == TOP_RIGHT)
 	{
 		if (!grid[TOP][RGT])
 			grid[TOP][RGT] = player_turn();
@@ -310,7 +310,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 4)
+	else if (place == MID_LEFT)
 	{
 		if (!grid[MID][LFT])
 			grid[MID][LFT] = player_turn();
@@ -321,7 +321,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 5)
+	else if (place == MID_CENTER)
 	{
 		if (!grid[MID][CNT])
 			grid[MID][CNT] = player_turn();
@@ -332,7 +332,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 6)
+	else if (place == MID_RIGHT)
 	{
 		if (!grid[MID][RGT])
 			grid[MID][RGT] = player_turn();
@@ -343,7 +343,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 7)
+	else if (place == LOW_LEFT)
 	{
 		if (!grid[LOW][LFT])
 			grid[LOW][LFT] = player_turn();
@@ -354,7 +354,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 8)
+	else if (place == LOW_CENTER)
 	{
 		if (!grid[LOW][CNT])
 			grid[LOW][CNT] = player_turn();
@@ -365,7 +365,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 9)
+	else if (place == LOW_RIGHT)
 	{
 		if (!grid[LOW][RGT])
 			grid[LOW][RGT] = player_turn();
@@ -404,7 +404,7 @@ try_person:
 	cout <<	"East (6), South West (7), South (8), South East (9): ";
 	cin >> place;
 	cout << endl;
-	if (place == 1)
+	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
@@ -415,7 +415,7 @@ try_person:
 			goto try_person; // Return to begining of function to try again
 		}
 	}
-	else if (place == 2)
+	else if (place == TOP_CENTER)
 	{
 		if (!grid[TOP][CNT])
 			grid[TOP][CNT] = player_turn();
@@ -426,7 +426,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 3)
+	else if (place == TOP_RIGHT)
 	{
 		if (!grid[TOP][RGT])
 			grid[TOP][RGT] = player_turn();
@@ -437,7 +437,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 4)
+	else if (place == MID_LEFT)
 	{
 		if (!grid[MID][LFT])
 			grid[MID][LFT] = player_turn();
@@ -448,7 +448,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 5)
+	else if (place == MID_CENTER)
 	{
 		if (!grid[MID][CNT])
 			grid[MID][CNT] = player_turn();
@@ -459,7 +459,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 6)
+	else if (place == MID_RIGHT)
 	{
 		if (!grid[MID][RGT])
 			grid[MID][RGT] = player_turn();
@@ -470,7 +470,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 7)
+	else if (place == LOW_LEFT)
 	{
 		if (!grid[LOW][LFT])
 			grid[LOW][LFT] = player_turn();
@@ -481,7 +481,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 8)
+	else if (place == LOW_CENTER)
 	{
 		if (!grid[LOW][CNT])
 			grid[LOW][CNT] = player_turn();
@@ -492,7 +492,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 9)
+	else if (place == LOW_RIGHT)
 	{
 		if (!grid[LOW][RGT])
 			grid[LOW][RGT] = player_turn();

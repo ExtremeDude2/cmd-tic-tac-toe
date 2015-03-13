@@ -35,6 +35,23 @@ enum {
     RGT
 };
 
+/*
+ * u nub11!1  y u counting from 1 to 9 instead of 0 to 8?!
+ */
+#define BASE            1
+
+#define TOP_LEFT        ((GRID_COMPLEXITY)*(TOP) + (LFT) + (BASE))
+#define TOP_CENTER      ((GRID_COMPLEXITY)*(TOP) + (CNT) + (BASE))
+#define TOP_RIGHT       ((GRID_COMPLEXITY)*(TOP) + (RGT) + (BASE))
+
+#define MID_LEFT        ((GRID_COMPLEXITY)*(MID) + (LFT) + (BASE))
+#define MID_CENTER      ((GRID_COMPLEXITY)*(MID) + (CNT) + (BASE))
+#define MID_RIGHT       ((GRID_COMPLEXITY)*(MID) + (RGT) + (BASE))
+
+#define LOW_LEFT        ((GRID_COMPLEXITY)*(LOW) + (LFT) + (BASE))
+#define LOW_CENTER      ((GRID_COMPLEXITY)*(LOW) + (CNT) + (BASE))
+#define LOW_RIGHT       ((GRID_COMPLEXITY)*(LOW) + (RGT) + (BASE))
+
 enum {
     BLANK,
     SET_X,
