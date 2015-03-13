@@ -276,7 +276,11 @@ try_CPU:
 		CPU_O();
 	}
 	else
+	{
 		cout << "Error, unknown turn" << endl;
+		error++;
+	}
+
 	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
