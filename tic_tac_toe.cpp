@@ -20,8 +20,7 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 
 using namespace std;
 
-// 0 = none, 1 = X, 2 = O, 3 = tie
-unsigned short grid[GRID_SIZE][GRID_SIZE];
+unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0, error = 0;
 
 // This function is CPU X's logic
@@ -32,7 +31,7 @@ void CPU_X()
 	GetLocalTime(&time);
 	int ran = time.wMilliseconds;
 	srand(ran);
-	place = (rand() % 9) + 1;
+	place = (rand() % GRID_SIZE) + 1;
 }
 
 // This function is CPU O's logic
@@ -43,13 +42,13 @@ void CPU_O()
 	GetLocalTime(&time);
 	int ran = time.wMilliseconds;
 	srand(ran);
-	place = (rand() % 9) + 1;
+	place = (rand() % GRID_SIZE) + 1;
 }
 
 // This function is used to determine whos turn it is
 unsigned short player_turn()
 {
-	return (turn % 2) + 1;
+	return (turn % NUM_PLAYERS) + 1;
 }
 
 // This function resets all of the places and clears the screen
@@ -57,9 +56,9 @@ void reset()
 {
     int x, y;
 
-    for (y = 0; y < GRID_SIZE; y++)
-        for (x = 0; x < GRID_SIZE; x++)
-            grid[y][x] = 0;
+    for (y = 0; y < GRID_COMPLEXITY; y++)
+        for (x = 0; x < GRID_COMPLEXITY; x++)
+            grid[y][x] = BLANK;
     turn = place = error = 0;
     system("cls"); /* <-- gay */
 }
@@ -73,79 +72,79 @@ unsigned short check_status()
 /*
  * horizontal tests
  */
-    if (grid[TOP][LFT] == 1 && grid[TOP][CNT] == 1 && grid[TOP][RGT] == 1)
-        return 1;
-    if (grid[MID][LFT] == 1 && grid[MID][CNT] == 1 && grid[MID][RGT] == 1)
-        return 1;
-    if (grid[LOW][LFT] == 1 && grid[LOW][CNT] == 1 && grid[LOW][RGT] == 1)
-        return 1;
+    if (grid[TOP][LFT] == SET_X && grid[TOP][CNT] == SET_X && grid[TOP][RGT] == SET_X)
+        return WIN_X;
+    if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
+        return WIN_X;
+    if (grid[LOW][LFT] == SET_X && grid[LOW][CNT] == SET_X && grid[LOW][RGT] == SET_X)
+        return WIN_X;
 
 /*
  * vertical tests
  */
-    if (grid[TOP][LFT] == 1 && grid[MID][LFT] == 1 && grid[LOW][LFT] == 1)
-        return 1;
-    if (grid[TOP][CNT] == 1 && grid[MID][CNT] == 1 && grid[LOW][CNT] == 1)
-        return 1;
-    if (grid[TOP][RGT] == 1 && grid[MID][RGT] == 1 && grid[LOW][RGT] == 1)
-        return 1;
+    if (grid[TOP][LFT] == SET_X && grid[MID][LFT] == SET_X && grid[LOW][LFT] == SET_X)
+        return WIN_X;
+    if (grid[TOP][CNT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][CNT] == SET_X)
+        return WIN_X;
+    if (grid[TOP][RGT] == SET_X && grid[MID][RGT] == SET_X && grid[LOW][RGT] == SET_X)
+        return WIN_X;
 
 /*
  * diagonal tests
  */
-    if (grid[TOP][LFT] == 1 && grid[MID][CNT] == 1 && grid[LOW][RGT] == 1)
-        return 1;
-    if (grid[TOP][RGT] == 1 && grid[MID][CNT] == 1 && grid[LOW][LFT] == 1)
-        return 1;
+    if (grid[TOP][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][RGT] == SET_X)
+        return WIN_X;
+    if (grid[TOP][RGT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][LFT] == SET_X)
+        return WIN_X;
 
 /*
  * samefag (repeated for other player) (lrn2usefunctions u nub!)
  */
-    if (grid[TOP][LFT] == 2 && grid[TOP][CNT] == 2 && grid[TOP][RGT] == 2)
-        return 2;
-    if (grid[MID][LFT] == 2 && grid[MID][CNT] == 2 && grid[MID][RGT] == 2)
-        return 2;
-    if (grid[LOW][LFT] == 2 && grid[LOW][CNT] == 2 && grid[LOW][RGT] == 2)
-        return 2;
+    if (grid[TOP][LFT] == SET_O && grid[TOP][CNT] == SET_O && grid[TOP][RGT] == SET_O)
+        return WIN_O;
+    if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
+        return WIN_O;
+    if (grid[LOW][LFT] == SET_O && grid[LOW][CNT] == SET_O && grid[LOW][RGT] == SET_O)
+        return WIN_O;
 
-    if (grid[TOP][LFT] == 2 && grid[MID][LFT] == 2 && grid[LOW][LFT] == 2)
-        return 2;
-    if (grid[TOP][CNT] == 2 && grid[MID][CNT] == 2 && grid[LOW][CNT] == 2)
-        return 2;
-    if (grid[TOP][RGT] == 2 && grid[MID][RGT] == 2 && grid[LOW][RGT] == 2)
-        return 2;
+    if (grid[TOP][LFT] == SET_O && grid[MID][LFT] == SET_O && grid[LOW][LFT] == SET_O)
+        return WIN_O;
+    if (grid[TOP][CNT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][CNT] == SET_O)
+        return WIN_O;
+    if (grid[TOP][RGT] == SET_O && grid[MID][RGT] == SET_O && grid[LOW][RGT] == SET_O)
+        return WIN_O;
 
-    if (grid[TOP][LFT] == 2 && grid[MID][CNT] == 2 && grid[LOW][RGT] == 2)
-        return 2;
-    if (grid[TOP][RGT] == 2 && grid[MID][CNT] == 2 && grid[LOW][LFT] == 2)
-        return 2;
+    if (grid[TOP][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][RGT] == SET_O)
+        return WIN_O;
+    if (grid[TOP][RGT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][LFT] == SET_O)
+        return WIN_O;
 
 /*
  * tied game (meaning you both suck)
  */
     test  = 1;
-    for (y = 0; y < GRID_SIZE; y++)
-        for (x = 0; x < GRID_SIZE; x++)
-            test &= (grid[y][x] == 1) || (grid[y][x] == 2);
-    if (test != 0 || turn >= 9)
-        return 3;
+    for (y = 0; y < GRID_COMPLEXITY; y++)
+        for (x = 0; x < GRID_COMPLEXITY; x++)
+            test &= (grid[y][x] == SET_X) || (grid[y][x] == SET_O);
+    if (test != 0 || turn >= GRID_SIZE)
+        return DRAW;
 
 /*
  * game still on
  */
-	return 0;
+	return PLAYING;
 }
 
 // This function is used when 2 CPU's play against each other
 void CPU2()
 {
 try_CPU2:
-	if (player_turn() == 1)
+	if (player_turn() == SET_X)
 	{
 		cout << "X(CPU)'s turn" << endl;
 		CPU_X();
 	}
-	else if (player_turn() == 2)
+	else if (player_turn() == SET_O)
 	{
 		cout << "O(CPU)'s turn" << endl;
 		CPU_O();
@@ -157,7 +156,7 @@ try_CPU2:
 	}
 
 /* to do:  wtf man lrn2switch */
-	if (place == 1)
+	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
@@ -168,7 +167,7 @@ try_CPU2:
 			goto try_CPU2; // Return to begining of function to try again
 		}
 	}
-	else if (place == 2)
+	else if (place == TOP_CENTER)
 	{
 		if (!grid[TOP][CNT])
 			grid[TOP][CNT] = player_turn();
@@ -178,7 +177,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 3)
+	else if (place == TOP_RIGHT)
 	{
 		if (!grid[TOP][RGT])
 			grid[TOP][RGT] = player_turn();
@@ -188,7 +187,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 4)
+	else if (place == MID_LEFT)
 	{
 		if (!grid[MID][LFT])
 			grid[MID][LFT] = player_turn();
@@ -198,7 +197,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 5)
+	else if (place == MID_CENTER)
 	{
 		if (!grid[MID][CNT])
 			grid[MID][CNT] = player_turn();
@@ -208,7 +207,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 6)
+	else if (place == MID_RIGHT)
 	{
 		if (!grid[MID][RGT])
 			grid[MID][RGT] = player_turn();
@@ -218,7 +217,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 7)
+	else if (place == LOW_LEFT)
 	{
 		if (!grid[LOW][LFT])
 			grid[LOW][LFT] = player_turn();
@@ -228,7 +227,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 8)
+	else if (place == LOW_CENTER)
 	{
 		if (!grid[LOW][CNT])
 			grid[LOW][CNT] = player_turn();
@@ -238,7 +237,7 @@ try_CPU2:
 			goto try_CPU2;
 		}
 	}
-	else if (place == 9)
+	else if (place == LOW_RIGHT)
 	{
 		if (!grid[LOW][RGT])
 			grid[LOW][RGT] = player_turn();
@@ -262,7 +261,7 @@ try_CPU2:
 void CPU()
 {
 try_CPU:
-	if (player_turn() == 1)
+	if (player_turn() == SET_X)
 	{
 		cout << "X's turn" << endl;
 		cout << endl << "Please select where you would like to go, options include:" << endl;
@@ -271,14 +270,14 @@ try_CPU:
 		cin >> place;
 		cout << endl;
 	}
-	else if (player_turn() == 2)
+	else if (player_turn() == SET_O)
 	{
 		cout << "O(CPU)'s turn" << endl;
 		CPU_O();
 	}
 	else
 		cout << "Error, unknown turn" << endl;
-	if (place == 1)
+	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
@@ -289,7 +288,7 @@ try_CPU:
 			goto try_CPU; // Return to begining of function to try again
 		}
 	}
-	else if (place == 2)
+	else if (place == TOP_CENTER)
 	{
 		if (!grid[TOP][CNT])
 			grid[TOP][CNT] = player_turn();
@@ -300,7 +299,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 3)
+	else if (place == TOP_RIGHT)
 	{
 		if (!grid[TOP][RGT])
 			grid[TOP][RGT] = player_turn();
@@ -311,7 +310,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 4)
+	else if (place == MID_LEFT)
 	{
 		if (!grid[MID][LFT])
 			grid[MID][LFT] = player_turn();
@@ -322,7 +321,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 5)
+	else if (place == MID_CENTER)
 	{
 		if (!grid[MID][CNT])
 			grid[MID][CNT] = player_turn();
@@ -333,7 +332,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 6)
+	else if (place == MID_RIGHT)
 	{
 		if (!grid[MID][RGT])
 			grid[MID][RGT] = player_turn();
@@ -344,7 +343,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 7)
+	else if (place == LOW_LEFT)
 	{
 		if (!grid[LOW][LFT])
 			grid[LOW][LFT] = player_turn();
@@ -355,7 +354,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 8)
+	else if (place == LOW_CENTER)
 	{
 		if (!grid[LOW][CNT])
 			grid[LOW][CNT] = player_turn();
@@ -366,7 +365,7 @@ try_CPU:
 			goto try_CPU;
 		}
 	}
-	else if (place == 9)
+	else if (place == LOW_RIGHT)
 	{
 		if (!grid[LOW][RGT])
 			grid[LOW][RGT] = player_turn();
@@ -391,9 +390,9 @@ try_CPU:
 void person()
 {
 try_person:
-	if (player_turn() == 1)
+	if (player_turn() == SET_X)
 		cout << "X's turn" << endl;
-	else if (player_turn() == 2)
+	else if (player_turn() == SET_O)
 		cout << "O's turn" << endl;
 	else
 	{
@@ -405,7 +404,7 @@ try_person:
 	cout <<	"East (6), South West (7), South (8), South East (9): ";
 	cin >> place;
 	cout << endl;
-	if (place == 1)
+	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
@@ -416,7 +415,7 @@ try_person:
 			goto try_person; // Return to begining of function to try again
 		}
 	}
-	else if (place == 2)
+	else if (place == TOP_CENTER)
 	{
 		if (!grid[TOP][CNT])
 			grid[TOP][CNT] = player_turn();
@@ -427,7 +426,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 3)
+	else if (place == TOP_RIGHT)
 	{
 		if (!grid[TOP][RGT])
 			grid[TOP][RGT] = player_turn();
@@ -438,7 +437,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 4)
+	else if (place == MID_LEFT)
 	{
 		if (!grid[MID][LFT])
 			grid[MID][LFT] = player_turn();
@@ -449,7 +448,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 5)
+	else if (place == MID_CENTER)
 	{
 		if (!grid[MID][CNT])
 			grid[MID][CNT] = player_turn();
@@ -460,7 +459,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 6)
+	else if (place == MID_RIGHT)
 	{
 		if (!grid[MID][RGT])
 			grid[MID][RGT] = player_turn();
@@ -471,7 +470,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 7)
+	else if (place == LOW_LEFT)
 	{
 		if (!grid[LOW][LFT])
 			grid[LOW][LFT] = player_turn();
@@ -482,7 +481,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 8)
+	else if (place == LOW_CENTER)
 	{
 		if (!grid[LOW][CNT])
 			grid[LOW][CNT] = player_turn();
@@ -493,7 +492,7 @@ try_person:
 			goto try_person;
 		}
 	}
-	else if (place == 9)
+	else if (place == LOW_RIGHT)
 	{
 		if (!grid[LOW][RGT])
 			grid[LOW][RGT] = player_turn();
@@ -541,17 +540,17 @@ start:
 		{
 			system("cls");
 			cout << "SCOREBOARD:" << endl;
-			if (check_status() == 1)
+			if (check_status() == WIN_X)
 			{
 				cout << endl << "X wins! It was done in " << turn << " turns." << endl << endl;
 				x_win++;
 			}
-			else if (check_status() == 2)
+			else if (check_status() == WIN_O)
 			{
 				cout << endl << "O wins! It was done in " << turn << " turns." << endl << endl;
 				o_win++;
 			}
-			else if (check_status() == 3)
+			else if (check_status() == DRAW)
 			{
 				cout << endl << "Tie, no one wins." << endl << endl;
 				tie++;
