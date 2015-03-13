@@ -13,6 +13,9 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 */
 
 #include <iostream>
+
+#include <stdio.h>
+
 #ifdef _WIN32
 #include <Windows.h>
 #endif
@@ -139,21 +142,20 @@ unsigned short check_status()
 void CPU2()
 {
 try_CPU2:
-	if (player_turn() == SET_X)
-	{
-		cout << "X(CPU)'s turn" << endl;
-		CPU_X();
-	}
-	else if (player_turn() == SET_O)
-	{
-		cout << "O(CPU)'s turn" << endl;
-		CPU_O();
-	}
-	else
-	{
-		cout << "Error, unknown turn" << endl;
-		error++;
-	}
+    switch (player_turn())
+    {
+    case SET_X:
+        puts("X(CPU)'s turn");
+        CPU_X();
+        break;
+    case SET_O:
+        puts("O(CPU)'s turn");
+        CPU_O();
+        break;
+    default:
+        puts("Error, unknown turn");
+        error++;
+    }
 
 /* to do:  wtf man lrn2switch */
 	if (place == TOP_LEFT)
@@ -163,7 +165,7 @@ try_CPU2:
 		else
 		{
 			// Don't worry about outputing an error if the CPU is moving as it it random and is bound to do so
-			// cout << "Error, cannot move there. Please try again" << endl << endl;
+			// puts("Error, cannot move there. Please try again\n");
 			goto try_CPU2; // Return to begining of function to try again
 		}
 	}
@@ -249,7 +251,7 @@ try_CPU2:
 	}
 	else
 	{
-		cout << "Error, incorect place. Please try again" << endl << endl;
+		puts("Error, incorrect place. Please try again\n");
 		error++;
 		goto try_CPU2;
 	}
@@ -261,29 +263,36 @@ try_CPU2:
 void CPU()
 {
 try_CPU:
-	if (player_turn() == SET_X)
-	{
-		cout << "X's turn" << endl;
-		cout << endl << "Please select where you would like to go, options include:" << endl;
-		cout << "Nort West (1), North (2), North East (3), West (4), Center (5)," << endl;
-		cout <<	"East (6), South West (7), South (8), South East (9): ";
-		cin >> place;
-		cout << endl;
-	}
-	else if (player_turn() == SET_O)
-	{
-		cout << "O(CPU)'s turn" << endl;
-		CPU_O();
-	}
-	else
-		cout << "Error, unknown turn" << endl;
+    switch (player_turn())
+    {
+    case SET_X:
+        puts("X's turn");
+        putchar('\n');
+        fputs(
+            "Please select where you would like to go, options include:\n"\
+            "Nort West (1), North (2), North East (3), West (4), Center (5),\n"\
+            "East (6), South West (7), South (8), South East (9):", stdout
+        );
+        putchar(' ');
+        cin >> place;
+        putchar('\n');
+        break;
+    case SET_O:
+        puts("O(CPU)'s turn");
+        CPU_O();
+        break;
+    default:
+        puts("Error, unknown turn");
+        error++;
+    }
+
 	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU; // Return to begining of function to try again
 		}
@@ -294,7 +303,7 @@ try_CPU:
 			grid[TOP][CNT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -305,7 +314,7 @@ try_CPU:
 			grid[TOP][RGT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -316,7 +325,7 @@ try_CPU:
 			grid[MID][LFT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -327,7 +336,7 @@ try_CPU:
 			grid[MID][CNT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -338,7 +347,7 @@ try_CPU:
 			grid[MID][RGT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -349,7 +358,7 @@ try_CPU:
 			grid[LOW][LFT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -360,7 +369,7 @@ try_CPU:
 			grid[LOW][CNT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
@@ -371,14 +380,14 @@ try_CPU:
 			grid[LOW][RGT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_CPU;
 		}
 	}
 	else
 	{
-		cout << "Error, incorect place. Please try again" << endl << endl;
+		puts("Error, incorrect place. Please try again\n");
 		error++;
 		goto try_CPU;
 	}
@@ -390,27 +399,36 @@ try_CPU:
 void person()
 {
 try_person:
-	if (player_turn() == SET_X)
-		cout << "X's turn" << endl;
-	else if (player_turn() == SET_O)
-		cout << "O's turn" << endl;
-	else
-	{
-		cout << "Error, unknown turn" << endl;
-		error++;
-	}
-	cout << endl << "Please select where you would like to go, options include:" << endl;
-	cout << "Nort West (1), North (2), North East (3), West (4), Center (5)," << endl;
-	cout <<	"East (6), South West (7), South (8), South East (9): ";
+    switch (player_turn())
+    {
+    case SET_X:
+        puts("X's turn");
+        break;
+    case SET_O:
+        puts("O's turn");
+        break;
+    default:
+        puts("Error, unknown turn");
+        error++;
+    }
+
+    putchar('\n');
+    fputs(
+        "Please select where you would like to go, options include:\n"\
+        "Nort West (1), North (2), North East (3), West (4), Center (5),\n"
+        "East (6), South West (7), South (8), South East (9):", stdout
+    );
+    putchar(' ');
 	cin >> place;
-	cout << endl;
+    putchar('\n');
+
 	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
 			grid[TOP][LFT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person; // Return to begining of function to try again
 		}
@@ -421,7 +439,7 @@ try_person:
 			grid[TOP][CNT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -432,7 +450,7 @@ try_person:
 			grid[TOP][RGT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -443,7 +461,7 @@ try_person:
 			grid[MID][LFT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -454,7 +472,7 @@ try_person:
 			grid[MID][CNT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -465,7 +483,7 @@ try_person:
 			grid[MID][RGT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -476,7 +494,7 @@ try_person:
 			grid[LOW][LFT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -487,7 +505,7 @@ try_person:
 			grid[LOW][CNT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
@@ -498,14 +516,14 @@ try_person:
 			grid[LOW][RGT] = player_turn();
 		else
 		{
-			cout << "Error, cannot move there. Please try again" << endl << endl;
+			puts("Error, cannot move there. Please try again\n");
 			error++;
 			goto try_person;
 		}
 	}
 	else
 	{
-		cout << "Error, incorect place. Please try again" << endl << endl;
+		puts("Error, incorrect place. Please try again\n");
 		error++;
 		goto try_person;
 	}
@@ -517,8 +535,11 @@ int main()
 {
 start:
 	// Ask the user how many human players there are (if any)
-	cout << "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? (switching number of players mid-game requires a restart)" << endl;
-	cout << "Note: All CPUs are very fast and you will likely not see them move." << endl;
+    puts(
+        "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? "\
+        "(switching number of players mid-game requires a restart)"
+    );
+    puts("Note: All CPUs are very fast and you will likely not see them move.");
 	cin >> players;
 	system("cls");
 	while (playing)
@@ -531,7 +552,7 @@ start:
 			person();
 		else
 		{
-			cout << "Error, do not know how many people/CPU's are playing. Please try again." << endl;
+			puts("Error, do not know how many people/CPU's are playing. Please try again.");
 			error++;
 			goto start;
 		}
@@ -539,34 +560,54 @@ start:
 		if (check_status())
 		{
 			system("cls");
-			cout << "SCOREBOARD:" << endl;
+			puts("SCOREBOARD:");
+			putchar('\n');
 			if (check_status() == WIN_X)
 			{
-				cout << endl << "X wins! It was done in " << turn << " turns." << endl << endl;
+				printf("X wins! It was done in %u turns.\n", turn);
 				x_win++;
 			}
 			else if (check_status() == WIN_O)
 			{
-				cout << endl << "O wins! It was done in " << turn << " turns." << endl << endl;
+				printf("O wins! It was done in %u turns.\n", turn);
 				o_win++;
 			}
 			else if (check_status() == DRAW)
 			{
-				cout << endl << "Tie, no one wins." << endl << endl;
+				printf("Tie, no one wins.\n");
 				tie++;
 			}
 			else
 			{
-				cout << "Error, unknown winner. Going back to start" << endl << endl;
+				puts("Error, unknown winner. Going back to start\n");
 				error++;
+				putchar('\n');
 				goto start;
 			}
+			putchar('\n');
+
 			game++;
 			draw_board();
-			cout << endl << "Out of " << game << " game(s) played " << "X has " << x_win << " win(s), O has "
-				<< o_win << " win(s) and there have been " << tie << " tie(s)." << endl << endl
-				<< "A total number of " << error << " errors have occurred this turn from moving in an incorect places or for some other reason."
-				<< endl << "Would you like to play again? (1 = yes, 0 = no): ";
+
+            putchar('\n');
+            printf(
+                "Out of %u game(s) played, "\
+                "X has %u win(s), "\
+                "O has %u win(s), "\
+                "and there have been %u tie(s).\n",
+
+                game, x_win, o_win, tie
+            );
+
+            putchar('\n');
+            printf(
+                "A total number of %u errors have occurred this turn "\
+                "from moving in incorrect places or for some other reason.\n",
+
+                error
+            );
+
+            fputs("Would you like to play again? (1 = yes, 0 = no): ", stdout);
 			cin >> playing;
 			reset();
 		}
