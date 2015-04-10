@@ -1,24 +1,19 @@
 /************************************************************/
 /*                                                          */ 
-/* Created by Ryan Collins 2012-2013, use at your own risk. */  
+/* Created by Ryan Collins 2012-2015, use at your own risk. */  
 /*                                                          */  
 /************************************************************/
 
 /*
 To do list:
-Fix cross platform compatibility (started)
 Optimize horrible code
 make CPU // No time D;
 Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 */
 
 #include <iostream>
-
 #include <stdio.h>
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
 #include "board.h"
 
 using namespace std;
@@ -26,25 +21,15 @@ using namespace std;
 unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, players = 0, error = 0;
 
-// This function is CPU X's logic
+// This function is CPU X's logic (aka random)
 void CPU_X()
 {
-	// Temp use of rand
-	SYSTEMTIME time;
-	GetLocalTime(&time);
-	int ran = time.wMilliseconds;
-	srand(ran);
 	place = (rand() % GRID_SIZE) + 1;
 }
 
-// This function is CPU O's logic
+// This function is CPU O's logic (aka random)
 void CPU_O()
 {
-	// Temp use of rand
-	SYSTEMTIME time;
-	GetLocalTime(&time);
-	int ran = time.wMilliseconds;
-	srand(ran);
 	place = (rand() % GRID_SIZE) + 1;
 }
 
@@ -101,7 +86,7 @@ unsigned short check_status()
         return WIN_X;
 
 /*
- * samefag (repeated for other player) (lrn2usefunctions u nub!)
+ * same (repeated for other player) (lrn2usefunctions u nub!)
  */
     if (grid[TOP][LFT] == SET_O && grid[TOP][CNT] == SET_O && grid[TOP][RGT] == SET_O)
         return WIN_O;
@@ -157,7 +142,7 @@ try_CPU2:
         error++;
     }
 
-/* to do:  wtf man lrn2switch */
+/* to do: glrn2switch */
 	if (place == TOP_LEFT)
 	{
 		if (!grid[TOP][LFT])
