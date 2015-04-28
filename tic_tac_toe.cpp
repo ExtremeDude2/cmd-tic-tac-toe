@@ -20,18 +20,24 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 using namespace std;
 
 unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
-unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, place = 0, error = 0;
+unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, error = 0;
 
 // This function is CPU X's logic (aka random)
-void CPU_X()
+long CPU_X()
 {
-	place = (rand() % GRID_SIZE) + 1;
+    long place;
+
+    place = (rand() % GRID_SIZE) + 1;
+    return (place);
 }
 
 // This function is CPU O's logic (aka random)
-void CPU_O()
+long CPU_O()
 {
-	place = (rand() % GRID_SIZE) + 1;
+    long place;
+
+    place = (rand() % GRID_SIZE) + 1;
+    return (place);
 }
 
 // This function is used to determine whos turn it is
@@ -48,7 +54,7 @@ void reset()
     for (y = 0; y < GRID_COMPLEXITY; y++)
         for (x = 0; x < GRID_COMPLEXITY; x++)
             grid[y][x] = BLANK;
-    turn = place = error = 0;
+    turn = error = 0;
     system("cls"); /* <-- gay */
 }
 
@@ -97,19 +103,22 @@ unsigned short check_status()
 // This function is used when 2 CPU's play against each other
 void CPU2()
 {
+    long place;
+
 try_CPU2:
     switch (player_turn())
     {
     case SET_X:
         puts("X(CPU)'s turn");
-        CPU_X();
+        place = CPU_X();
         break;
     case SET_O:
         puts("O(CPU)'s turn");
-        CPU_O();
+        place = CPU_O();
         break;
     default:
         puts("Error, unknown turn");
+        place = 0;
         error++;
     }
 
@@ -218,6 +227,8 @@ try_CPU2:
 // This function is used when 1 player is against 1 CPU
 void CPU()
 {
+    long place;
+
 try_CPU:
     switch (player_turn())
     {
@@ -235,10 +246,11 @@ try_CPU:
         break;
     case SET_O:
         puts("O(CPU)'s turn");
-        CPU_O();
+        place = CPU_O();
         break;
     default:
         puts("Error, unknown turn");
+        place = 0;
         error++;
     }
 
@@ -354,6 +366,8 @@ try_CPU:
 // This function is used when 2 people play against each other
 void person()
 {
+    long place;
+
 try_person:
     switch (player_turn())
     {
@@ -498,6 +512,7 @@ start:
         "(switching number of players mid-game requires a restart)"
     );
     puts("Note: All CPUs are very fast and you will likely not see them move.");
+
 	cin >> players;
 	system("cls");
 	while (playing)
@@ -514,7 +529,6 @@ start:
 			error++;
 			goto start;
 		}
-		place = 0;
 		if (check_status())
 		{
 			system("cls");
