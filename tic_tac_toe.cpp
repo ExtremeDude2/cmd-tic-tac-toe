@@ -20,7 +20,7 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 using namespace std;
 
 unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
-unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, playing = 1, error = 0;
+unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, error = 0;
 
 // This function is CPU X's logic (aka random)
 long CPU_X()
@@ -504,6 +504,7 @@ try_person:
 int main(void)
 {
     long players;
+    long playing;
 
 start:
 	// Ask the user how many human players there are (if any)
@@ -515,6 +516,7 @@ start:
 
 	cin >> players;
 	system("cls");
+    playing = 1;
 	while (playing)
 	{
 		if (players == 0)
