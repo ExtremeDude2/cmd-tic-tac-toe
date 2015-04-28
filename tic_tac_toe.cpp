@@ -13,6 +13,7 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "board.h"
 
