@@ -65,7 +65,7 @@ extern unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 
 extern void draw_row(unsigned short * row);
 
-// This function draws the board and any X's or O's
+/* This function draws the board and any X's or O's. */
 void draw_board()
 {
     draw_row(grid[TOP]);

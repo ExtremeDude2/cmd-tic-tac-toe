@@ -48,7 +48,7 @@ static long scan_long(void)
 unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, error = 0;
 
-// This function is CPU X's logic (aka random)
+/* This function is CPU X's logic (aka random). */
 long CPU_X()
 {
     long place;
@@ -57,7 +57,7 @@ long CPU_X()
     return (place);
 }
 
-// This function is CPU O's logic (aka random)
+/* This function is CPU O's logic (aka random). */
 long CPU_O()
 {
     long place;
@@ -66,13 +66,13 @@ long CPU_O()
     return (place);
 }
 
-// This function is used to determine whos turn it is
+/* This function is used to determine whose turn it is. */
 unsigned short player_turn()
 {
 	return (turn % NUM_PLAYERS) + 1;
 }
 
-// This function resets all of the places and clears the screen
+/* This function resets all of the places and clears the screen. */
 void reset()
 {
     int x, y;
@@ -84,7 +84,7 @@ void reset()
     system("cls"); /* <-- gay */
 }
 
-// This function checks to see if anyone has won or if there is a tie
+/* This function checks to see if anyone has won or if there is a tie. */
 unsigned short check_status()
 {
     unsigned int ways_to_win[8];
@@ -126,7 +126,7 @@ unsigned short check_status()
     }
 }
 
-// This function is used when 2 CPU's play against each other
+/* This function is used when 2 CPU's play against each other. */
 void CPU2()
 {
     long place;
@@ -155,9 +155,11 @@ try_CPU2:
 			grid[TOP][LFT] = player_turn();
 		else
 		{
-			// Don't worry about outputing an error if the CPU is moving as it it random and is bound to do so
-			// puts("Error, cannot move there. Please try again\n");
-			goto try_CPU2; // Return to begining of function to try again
+            /* Don't worry about outputting an error if the CPU is moving, as it is random and is bound to do so. */
+#if 0
+            puts("Error, cannot move there. Please try again\n");
+#endif
+            goto try_CPU2; /* Return to beginning of function to try again. */
 		}
 	}
 	else if (place == TOP_CENTER)
@@ -250,7 +252,7 @@ try_CPU2:
 	turn++;
 }
 
-// This function is used when 1 player is against 1 CPU
+/* This function is used when 1 player is against 1 CPU. */
 void CPU()
 {
     long place;
@@ -288,7 +290,7 @@ try_CPU:
 		{
 			puts("Error, cannot move there. Please try again\n");
 			error++;
-			goto try_CPU; // Return to begining of function to try again
+			goto try_CPU; /* Return to begining of function to try again. */
 		}
 	}
 	else if (place == TOP_CENTER)
@@ -389,7 +391,7 @@ try_CPU:
 	turn++;
 }
 
-// This function is used when 2 people play against each other
+/* This function is used when 2 people play against each other. */
 void person()
 {
     long place;
@@ -426,7 +428,7 @@ try_person:
 		{
 			puts("Error, cannot move there. Please try again\n");
 			error++;
-			goto try_person; // Return to begining of function to try again
+			goto try_person; /* Return to begining of function to try again. */
 		}
 	}
 	else if (place == TOP_CENTER)
@@ -533,7 +535,7 @@ int main(void)
     long playing;
 
 start:
-	// Ask the user how many human players there are (if any)
+	/* Ask the user how many human players there are (if any). */
     puts(
         "Would you like to play with 0 (2 CPUs), 1 (1 CPU), or 2 players? "\
         "(switching number of players mid-game requires a restart)"
