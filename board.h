@@ -77,223 +77,43 @@ void draw_board()
     return;
 }
 
+#define LINES_PER_DRAWING       5
+static const char ASCII_drawings[NUM_PLAYERS + 1][LINES_PER_DRAWING][10] = {
+    { /* blank space */
+        "         ",
+        "         ",
+        "         ",
+        "         ",
+        "         ",
+    },
+    {
+        "  X   X  ",
+        "   X X   ",
+        "    X    ",
+        "   X X   ",
+        "  X   X  ",
+    },
+    {
+        "   OOO   ",
+        "  O   O  ",
+        "  O   O  ",
+        "  O   O  ",
+        "   OOO   ",
+    },
+};
+
 void draw_row(unsigned short * row)
 {
-    if (row[LFT] == SET_X && row[CNT] == BLANK && row[RGT] == BLANK)
+    register int current_line;
+
+    for (current_line = 0; current_line < LINES_PER_DRAWING; current_line++)
     {
-        puts("  X   X  |         |         ");
-        puts("   X X   |         |         ");
-        puts("    X    |         |         ");
-        puts("   X X   |         |         ");
-        puts("  X   X  |         |         ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == SET_X && row[RGT] == BLANK)
-    {
-        puts("         |  X   X  |         ");
-        puts("         |   X X   |         ");
-        puts("         |    X    |         ");
-        puts("         |   X X   |         ");
-        puts("         |  X   X  |         ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == BLANK && row[RGT] == SET_X)
-    {
-        puts("         |         |  X   X  ");
-        puts("         |         |   X X   ");
-        puts("         |         |    X    ");
-        puts("         |         |   X X   ");
-        puts("         |         |  X   X  ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == SET_X && row[RGT] == BLANK)
-    {
-        puts("  X   X  |  X   X  |         ");
-        puts("   X X   |   X X   |         ");
-        puts("    X    |    X    |         ");
-        puts("   X X   |   X X   |         ");
-        puts("  X   X  |  X   X  |         ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == SET_X && row[RGT] == SET_X)
-    {
-        puts("         |  X   X  |  X   X  ");
-        puts("         |   X X   |   X X   ");
-        puts("         |    X    |    X    ");
-        puts("         |   X X   |   X X   ");
-        puts("         |  X   X  |  X   X  ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == BLANK && row[RGT] == SET_X)
-    {
-        puts("  X   X  |         |  X   X  ");
-        puts("   X X   |         |   X X   ");
-        puts("    X    |         |    X    ");
-        puts("   X X   |         |   X X   ");
-        puts("  X   X  |         |  X   X  ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == SET_X && row[RGT] == SET_X)
-    {
-        puts("  X   X  |  X   X  |  X   X  ");
-        puts("   X X   |   X X   |   X X   ");
-        puts("    X    |    X    |    X    ");
-        puts("   X X   |   X X   |   X X   ");
-        puts("  X   X  |  X   X  |  X   X  ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == BLANK && row[RGT] == BLANK)
-    {
-        puts("   OOO   |         |         ");
-        puts("  O   O  |         |         ");
-        puts("  O   O  |         |         ");
-        puts("  O   O  |         |         ");
-        puts("   OOO   |         |         ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == SET_O && row[RGT] == BLANK)
-    {
-        puts("         |   OOO   |         ");
-        puts("         |  O   O  |         ");
-        puts("         |  O   O  |         ");
-        puts("         |  O   O  |         ");
-        puts("         |   OOO   |         ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == BLANK && row[RGT] == SET_O)
-    {
-        puts("         |         |   OOO   ");
-        puts("         |         |  O   O  ");
-        puts("         |         |  O   O  ");
-        puts("         |         |  O   O  ");
-        puts("         |         |   OOO   ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == SET_O && row[RGT] == BLANK)
-    {
-        puts("   OOO   |   OOO   |         ");
-        puts("  O   O  |  O   O  |         ");
-        puts("  O   O  |  O   O  |         ");
-        puts("  O   O  |  O   O  |         ");
-        puts("   OOO   |   OOO   |         ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == SET_O && row[RGT] == SET_O)
-    {
-        puts("         |   OOO   |   OOO   ");
-        puts("         |  O   O  |  O   O  ");
-        puts("         |  O   O  |  O   O  ");
-        puts("         |  O   O  |  O   O  ");
-        puts("         |   OOO   |   OOO   ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == BLANK && row[RGT] == SET_O)
-    {
-        puts("   OOO   |         |   OOO   ");
-        puts("  O   O  |         |  O   O  ");
-        puts("  O   O  |         |  O   O  ");
-        puts("  O   O  |         |  O   O  ");
-        puts("   OOO   |         |   OOO   ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == SET_O && row[RGT] == SET_O)
-    {
-        puts("   OOO   |   OOO   |   OOO   ");
-        puts("  O   O  |  O   O  |  O   O  ");
-        puts("  O   O  |  O   O  |  O   O  ");
-        puts("  O   O  |  O   O  |  O   O  ");
-        puts("   OOO   |   OOO   |   OOO   ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == SET_O && row[RGT] == SET_O)
-    {
-        puts("  X   X  |   OOO   |   OOO   ");
-        puts("   X X   |  O   O  |  O   O  ");
-        puts("    X    |  O   O  |  O   O  ");
-        puts("   X X   |  O   O  |  O   O  ");
-        puts("  X   X  |   OOO   |   OOO   ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == SET_O && row[RGT] == BLANK)
-    {
-        puts("  X   X  |   OOO   |         ");
-        puts("   X X   |  O   O  |         ");
-        puts("    X    |  O   O  |         ");
-        puts("   X X   |  O   O  |         ");
-        puts("  X   X  |   OOO   |         ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == SET_X && row[RGT] == SET_O)
-    {
-        puts("  X   X  |  X   X  |   OOO   ");
-        puts("   X X   |   X X   |  O   O  ");
-        puts("    X    |    X    |  O   O  ");
-        puts("   X X   |   X X   |  O   O  ");
-        puts("  X   X  |  X   X  |   OOO   ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == SET_O && row[RGT] == SET_X)
-    {
-        puts("  X   X  |   OOO   |  X   X  ");
-        puts("   X X   |  O   O  |   X X   ");
-        puts("    X    |  O   O  |    X    ");
-        puts("   X X   |  O   O  |   X X   ");
-        puts("  X   X  |   OOO   |  X   X  ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == SET_X && row[RGT] == SET_O)
-    {
-        puts("         |  X   X  |   OOO   ");
-        puts("         |   X X   |  O   O  ");
-        puts("         |    X    |  O   O  ");
-        puts("         |   X X   |  O   O  ");
-        puts("         |  X   X  |   OOO   ");
-    }
-    else if (row[LFT] == BLANK && row[CNT] == SET_O && row[RGT] == SET_X)
-    {
-        puts("         |   OOO   |  X   X  ");
-        puts("         |  O   O  |   X X   ");
-        puts("         |  O   O  |    X    ");
-        puts("         |  O   O  |   X X   ");
-        puts("         |   OOO   |  X   X  ");
-    }
-    else if (row[LFT] == SET_X && row[CNT] == BLANK && row[RGT] == SET_O)
-    {
-        puts("  X   X  |         |   OOO   ");
-        puts("   X X   |         |  O   O  ");
-        puts("    X    |         |  O   O  ");
-        puts("   X X   |         |  O   O  ");
-        puts("  X   X  |         |   OOO   ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == SET_X && row[RGT] == SET_O)
-    {
-        puts("   OOO   |  X   X  |   OOO   ");
-        puts("  O   O  |   X X   |  O   O  ");
-        puts("  O   O  |    X    |  O   O  ");
-        puts("  O   O  |   X X   |  O   O  ");
-        puts("   OOO   |  X   X  |   OOO   ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == BLANK && row[RGT] == SET_X)
-    {
-        puts("   OOO   |         |  X   X  ");
-        puts("  O   O  |         |   X X   ");
-        puts("  O   O  |         |    X    ");
-        puts("  O   O  |         |   X X   ");
-        puts("   OOO   |         |  X   X  ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == SET_O && row[RGT] == SET_X)
-    {
-        puts("   OOO   |   OOO   |  X   X  ");
-        puts("  O   O  |  O   O  |   X X   ");
-        puts("  O   O  |  O   O  |    X    ");
-        puts("  O   O  |  O   O  |   X X   ");
-        puts("   OOO   |   OOO   |  X   X  ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == SET_X && row[RGT] == BLANK)
-    {
-        puts("   OOO   |  X   X  |         ");
-        puts("  O   O  |   X X   |         ");
-        puts("  O   O  |    X    |         ");
-        puts("  O   O  |   X X   |         ");
-        puts("   OOO   |  X   X  |         ");
-    }
-    else if (row[LFT] == SET_O && row[CNT] == SET_X && row[RGT] == SET_X)
-    {
-        puts("   OOO   |  X   X  |  X   X  ");
-        puts("  O   O  |   X X   |   X X   ");
-        puts("  O   O  |    X    |    X    ");
-        puts("  O   O  |   X X   |   X X   ");
-        puts("   OOO   |  X   X  |  X   X  ");
-    }
-    else
-    {
-        puts("         |         |         ");
-        puts("         |         |         ");
-        puts("         |         |         ");
-        puts("         |         |         ");
-        puts("         |         |         ");
+        fputs(ASCII_drawings[row[LFT]][current_line], stdout);
+        putchar('|');
+        fputs(ASCII_drawings[row[CNT]][current_line], stdout);
+        putchar('|');
+        fputs(ASCII_drawings[row[RGT]][current_line], stdout);
+        putchar('\n');
     }
     return;
 }
