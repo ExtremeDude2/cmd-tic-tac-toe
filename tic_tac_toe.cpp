@@ -11,20 +11,38 @@ make CPU // No time D;
 Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 */
 
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "board.h"
 
-using namespace std;
-
 static long scan_long(void)
 {
-    long result;
+    static char temp_buffer[32];
+    size_t i;
 
-    cin >> result;
-    return (result);
+    for (i = 0; i < sizeof(temp_buffer); i++)
+    {
+        int character;
+
+        character = getchar();
+        if (character == '\n')
+            break;
+        if (character == EOF)
+        {
+            fputs("scan_long:  unexpected EOF\n", stderr);
+            break;
+        }
+        temp_buffer[i] = (char)character;
+    }
+
+    if (i >= sizeof(temp_buffer))
+    {
+        fputs("scan_long:  evaded buffer overrun\n", stderr);
+        i = sizeof(temp_buffer) - 1;
+    }
+    temp_buffer[i] = '\0';
+    return strtol(temp_buffer, NULL, 0);
 }
 
 unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
