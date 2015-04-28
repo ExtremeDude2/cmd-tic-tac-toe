@@ -19,6 +19,14 @@ Try to make UI // Nooooooooooooooooooooooooooooo, it won't work D;
 
 using namespace std;
 
+static long scan_long(void)
+{
+    long result;
+
+    cin >> result;
+    return (result);
+}
+
 unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 unsigned short turn = 0, game = 0, x_win = 0, o_win = 0, tie = 0, error = 0;
 
@@ -241,7 +249,7 @@ try_CPU:
             "East (6), South West (7), South (8), South East (9):", stdout
         );
         putchar(' ');
-        cin >> place;
+        place = scan_long();
         putchar('\n');
         break;
     case SET_O:
@@ -389,7 +397,7 @@ try_person:
         "East (6), South West (7), South (8), South East (9):", stdout
     );
     putchar(' ');
-	cin >> place;
+    place = scan_long();
     putchar('\n');
 
 	if (place == TOP_LEFT)
@@ -514,7 +522,7 @@ start:
     );
     puts("Note: All CPUs are very fast and you will likely not see them move.");
 
-	cin >> players;
+    players = scan_long();
 	system("cls");
     playing = 1;
 	while (playing)
@@ -582,7 +590,7 @@ start:
             );
 
             fputs("Would you like to play again? (1 = yes, 0 = no): ", stdout);
-			cin >> playing;
+            playing = scan_long();
 			reset();
 		}
 	}
