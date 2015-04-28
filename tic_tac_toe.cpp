@@ -55,73 +55,43 @@ void reset()
 // This function checks to see if anyone has won or if there is a tie
 unsigned short check_status()
 {
+    unsigned int ways_to_win[8];
     unsigned int test;
-    int x, y;
+    register int i;
 
 /*
  * horizontal tests
  */
-    if (grid[TOP][LFT] == SET_X && grid[TOP][CNT] == SET_X && grid[TOP][RGT] == SET_X)
-        return WIN_X;
-    if (grid[MID][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[MID][RGT] == SET_X)
-        return WIN_X;
-    if (grid[LOW][LFT] == SET_X && grid[LOW][CNT] == SET_X && grid[LOW][RGT] == SET_X)
-        return WIN_X;
+    ways_to_win[0] = grid[TOP][LFT] & grid[TOP][CNT] & grid[TOP][RGT];
+    ways_to_win[1] = grid[MID][LFT] & grid[MID][CNT] & grid[MID][RGT];
+    ways_to_win[2] = grid[LOW][LFT] & grid[LOW][CNT] & grid[LOW][RGT];
 
 /*
  * vertical tests
  */
-    if (grid[TOP][LFT] == SET_X && grid[MID][LFT] == SET_X && grid[LOW][LFT] == SET_X)
-        return WIN_X;
-    if (grid[TOP][CNT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][CNT] == SET_X)
-        return WIN_X;
-    if (grid[TOP][RGT] == SET_X && grid[MID][RGT] == SET_X && grid[LOW][RGT] == SET_X)
-        return WIN_X;
+    ways_to_win[3] = grid[TOP][LFT] & grid[MID][LFT] & grid[LOW][LFT];
+    ways_to_win[4] = grid[TOP][CNT] & grid[MID][CNT] & grid[LOW][CNT];
+    ways_to_win[5] = grid[TOP][RGT] & grid[MID][RGT] & grid[LOW][RGT];
 
 /*
  * diagonal tests
  */
-    if (grid[TOP][LFT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][RGT] == SET_X)
-        return WIN_X;
-    if (grid[TOP][RGT] == SET_X && grid[MID][CNT] == SET_X && grid[LOW][LFT] == SET_X)
-        return WIN_X;
+    ways_to_win[6] = grid[TOP][LFT] & grid[MID][CNT] & grid[LOW][RGT];
+    ways_to_win[7] = grid[TOP][RGT] & grid[MID][CNT] & grid[LOW][LFT];
 
-/*
- * same (repeated for other player) (lrn2usefunctions u nub!)
- */
-    if (grid[TOP][LFT] == SET_O && grid[TOP][CNT] == SET_O && grid[TOP][RGT] == SET_O)
-        return WIN_O;
-    if (grid[MID][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[MID][RGT] == SET_O)
-        return WIN_O;
-    if (grid[LOW][LFT] == SET_O && grid[LOW][CNT] == SET_O && grid[LOW][RGT] == SET_O)
-        return WIN_O;
+    test = 0;
+    for (i = 0; i < 8; i++)
+        test |= ways_to_win[i];
 
-    if (grid[TOP][LFT] == SET_O && grid[MID][LFT] == SET_O && grid[LOW][LFT] == SET_O)
-        return WIN_O;
-    if (grid[TOP][CNT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][CNT] == SET_O)
-        return WIN_O;
-    if (grid[TOP][RGT] == SET_O && grid[MID][RGT] == SET_O && grid[LOW][RGT] == SET_O)
-        return WIN_O;
-
-    if (grid[TOP][LFT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][RGT] == SET_O)
-        return WIN_O;
-    if (grid[TOP][RGT] == SET_O && grid[MID][CNT] == SET_O && grid[LOW][LFT] == SET_O)
-        return WIN_O;
-
-/*
- * tied game (meaning you both suck)
- */
-    test  = 1;
-    for (y = 0; y < GRID_COMPLEXITY; y++)
-        for (x = 0; x < GRID_COMPLEXITY; x++)
-            test &= (grid[y][x] == SET_X) || (grid[y][x] == SET_O);
-    if (test != 0 || turn >= GRID_SIZE)
-        return DRAW;
-
-/*
- * game still on
- */
-	return PLAYING;
+    switch (test)
+    {
+    case BLANK:  return (turn < GRID_SIZE ? PLAYING : DRAW);
+    case SET_X:  return (WIN_X);
+    case SET_O:  return (WIN_O);
+    default:
+        fputs("check_status:  conflicting or multiple winners?", stderr);
+        return (test);
+    }
 }
 
 // This function is used when 2 CPU's play against each other

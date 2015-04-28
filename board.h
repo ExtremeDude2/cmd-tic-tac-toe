@@ -52,14 +52,14 @@ enum {
 
 enum {
     BLANK,
-    SET_X,
-    SET_O
+    SET_X = 1 << 0,
+    SET_O = 1 << 1
 };
 
 #define PLAYING     0
 #define WIN_X       (SET_X)
 #define WIN_O       (SET_O)
-#define DRAW        3
+#define DRAW        63
 
 extern unsigned short grid[GRID_COMPLEXITY][GRID_COMPLEXITY];
 
