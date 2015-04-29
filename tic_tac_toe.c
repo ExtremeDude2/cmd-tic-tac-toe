@@ -614,4 +614,5 @@ start:
             reset();
         }
     }
+    return 0;
 }
